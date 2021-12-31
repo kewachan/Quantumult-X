@@ -44,8 +44,8 @@ var flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
     //$notify(result["title"], output, result["content"], link)
     
     //console.log(result)
-    let content = "</br></br>" + result["content"]
-    content = content + "</br></br>"+"<font color=#3A3B3C>"+"<b>Node</b>: " + $environment.params+ "</font>"
+    let content = "</br>" + result["content"]
+    content = content + "</br></br>"+"<font color=#A9A9A9>"+"<b>Node</b>: " + $environment.params+ "</font>"
     content =`<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + content + `</p>`
     $done({"title":"Netflix Content Check","htmlMessage":content})
   })
