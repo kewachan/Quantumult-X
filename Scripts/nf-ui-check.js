@@ -44,10 +44,10 @@ var flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
     //$notify(result["title"], output, result["content"], link)
     
     //console.log(result)
-    let content = "------------------------------"+"</br></br>"+result["content"]
-    content = content + "</br></br>------------------------------</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
+    let content = result["content"]
+    content = content +"<font color=#6959CD>"+"<b>Node</b> : " + $environment.params+ "</font>"
     content =`<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + content + `</p>`
-    $done({"title":"Netflix 解锁检测","htmlMessage":content})
+    $done({"title":"Netflix Unlock Check","htmlMessage":content})
   })
 })()
 .finally(() => $done());
