@@ -1,22 +1,12 @@
 /***
-
 Thanks to & modified from https://gist.githubusercontent.com/Hyseen/b06e911a41036ebc36acf04ddebe7b9a/raw/nf_check.js
-
-For Quantumult-X 598+
-
-[task-local]
-
-event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/nf-ui-check.js, tag=Netflix 查询, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png, enabled=true
-
-@XIAO_KOP
-
 **/
 
 const BASE_URL = 'https://www.netflix.com/title/'
 
 const FILM_ID = 81215567
 const link = { "media-url": "https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/img/southpark/7.png" } 
-const policy_name = "Netflix" //填入你的 netflix 策略组名
+const policy_name = "Netflix"
 
 const arrow = "➟"
 var output = ""
