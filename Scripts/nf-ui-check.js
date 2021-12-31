@@ -29,25 +29,25 @@ var flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
     console.log(code)
     
     if (code === 'Not Available') {
-      result['content'] = 'This Node does not unlock Netflix'
+      result['content'] = 'Netflix not available'
       //return 
       //console.log(result)
     } else if (code === 'Not Found') {
-      result['content'] = 'This Node only able to view Netflix Original'
+      result['content'] = 'Netflix Original content only'
       //return
     } else if (code === "timeout") {
       result['content'] = "Test Timeout"
     } else {
-      result['content'] = 'This Node unlock the content of '+flags.get(code.toUpperCase())+" Zone"
+      result['content'] = 'Region '+flags.get(code.toUpperCase())+" Content is avaliable"
     }
     
     //$notify(result["title"], output, result["content"], link)
     
     //console.log(result)
     let content = "</br>" + result["content"]
-    content = content + "</br></br>"+"<font color=#A9A9A9>"+"<b>Node</b>: " + $environment.params+ "</font>"
+    content = content + "</br></br>"+"<font color=#CECECE>"+"<b>Node</b>: " + $environment.params+ "</font>"
     content =`<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + content + `</p>`
-    $done({"title":"Netflix Content Unlock Check","htmlMessage":content})
+    $done({"title":"Netflix Content Region Check","htmlMessage":content})
   })
 })()
 .finally(() => $done());
