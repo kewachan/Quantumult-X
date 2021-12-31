@@ -38,14 +38,14 @@ var flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
     } else if (code === "timeout") {
       result['content'] = "Test Timeout"
     } else {
-      result['content'] = 'This Node fully unlock the content of Netflix ⟦'+flags.get(code.toUpperCase())+" Zone⟧"
+      result['content'] = 'This Node fully unlock the content of '+flags.get(code.toUpperCase())+" Zone Netflix"
     }
     
     //$notify(result["title"], output, result["content"], link)
     
     //console.log(result)
     let content = result["content"]
-    content = content +"<font color=#6959CD>"+"<b>Node</b> : " + $environment.params+ "</font>"
+    content = content + "</br>"+"<font color=#6959CD>"+"<b>Node</b> : " + $environment.params+ "</font>"
     content =`<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + content + `</p>`
     $done({"title":"Netflix Unlock Check","htmlMessage":content})
   })
