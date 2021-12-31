@@ -5,7 +5,7 @@ Thanks to & modified from https://gist.githubusercontent.com/Hyseen/b06e911a4103
 const BASE_URL = 'https://www.netflix.com/title/'
 
 const FILM_ID = 81215567
-const link = { "media-url": "https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/img/southpark/7.png" } 
+const link = { "media-url": "https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Icons/Netflix.png" } 
 const policy_name = "Netflix"
 
 const arrow = "➟"
@@ -20,25 +20,25 @@ var flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
 
 !(async () => {
   let result = {
-    title: '  Netflix 解锁检测',
+    title: '  Netflix Unlock Check',
     subtitle: output,
-    content: '检测失败，请重试',
+    content: 'Check failed, please retry',
   }
   await Promise.race([test(FILM_ID),timeOut(5000)])
   .then((code) => {
     console.log(code)
     
     if (code === 'Not Available') {
-      result['content'] = '该节点未解锁 Netflix'
+      result['content'] = 'This Node does not unlock Netflix'
       //return 
       //console.log(result)
     } else if (code === 'Not Found') {
-      result['content'] = '该节点仅支持解锁 Netflix 自制剧'
+      result['content'] = 'This Node only able to view Netflix Original'
       //return
     } else if (code === "timeout") {
-      result['content'] = "测试超时"
+      result['content'] = "Test Timeout"
     } else {
-      result['content'] = '该节点完整解锁 Netflix ➟ ⟦'+flags.get(code.toUpperCase())+" 地区⟧"
+      result['content'] = 'This Node fully unlock the content of Netflix ⟦'+flags.get(code.toUpperCase())+" Zone⟧"
     }
     
     //$notify(result["title"], output, result["content"], link)
