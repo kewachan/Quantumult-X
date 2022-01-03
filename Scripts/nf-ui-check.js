@@ -38,7 +38,7 @@ var flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
     } else if (code === "timeout") {
       result['content'] = "Test Timeout"
     } else {
-      result['content'] = 'Streamable with region '+flags.get(code.toUpperCase())+" content!"
+      result['content'] = 'Streamable with region '+flags.get(code.toUpperCase())+" content"
     }
     
     //$notify(result["title"], output, result["content"], link)
