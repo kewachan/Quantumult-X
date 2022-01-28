@@ -1,0 +1,32 @@
+{
+  "inbounds": [{
+    "port": 24380,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "5b85c8d2-9ab4-4fce-a91d-3df5f0090a47",
+          "level": 1,
+          "alterId": 64
+        }
+      ]
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  },{
+    "protocol": "blackhole",
+    "settings": {},
+    "tag": "blocked"
+  }],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
