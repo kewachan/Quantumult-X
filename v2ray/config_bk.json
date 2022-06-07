@@ -1,11 +1,11 @@
 {
   "inbounds": [{
-    "port": 24365,
+    "port": 24380,
     "protocol": "vmess",
     "settings": {
       "clients": [
         {
-          "id": "5b85c8d2-9ab4-4fce-a91d-3df5f0090a89",
+          "id": "5b85c8d2-9ab4-4fce-a91d-3df5f0090a47",
           "level": 1,
           "alterId": 64
         }
