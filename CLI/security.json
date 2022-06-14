@@ -1,6 +1,6 @@
 [
  {
-  "source": "103.143.92.0/23",
+  "source": "103.143.92.0/23",
   "protocol": "all",
   "isStateless": "false",
   "Description": "OCI WAF IP Ranges"
@@ -12,7 +12,7 @@
   "Description": "OCI WAF IP Ranges"
  },
  {
-  "source": "103.192.44.0/24",
+  "source": "103.192.44.0/24",
   "protocol": "all",
   "isStateless": "false",
   "Description": "OCI WAF IP Ranges"
