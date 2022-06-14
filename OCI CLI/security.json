@@ -1,0 +1,8 @@
+[
+ {
+  "source": "45.123.202.0/24",
+  "protocol": "22",
+  "isStateless": "false",
+  "Description": "Telnet"
+ }
+]
