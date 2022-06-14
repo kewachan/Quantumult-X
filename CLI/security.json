@@ -1,8 +1,8 @@
 [
  {
-  "source": "45.123.202.0/24",
-  "protocol": "22",
+  "source": "45.123.202.0/24",
+  "protocol": "all",
   "isStateless": "false",
-  "Description": "Telnet"
+  "Description": "OCI WAF IP Ranges"
  }
 ]
