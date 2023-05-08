@@ -14,3 +14,6 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbe
 
 #Namkwong
 ^https?:\/\/app.namkwong.com.mo\/gasstation_app\/aBanner url reject-200
+
+#Tikbee
+^https?:\/\/api.tikbee.com\/v2\/wm\/ad\/getByKey\? url reject
