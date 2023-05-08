@@ -1,0 +1,16 @@
+hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net
+
+#Macau Taxi
+^https?:\/\/182.93.34.74:\d+\/taxi\/passenger\/advertisement url reject
+^https?:\/\/182.93.34.74:\d+\/gpsmcweb\/\/Image url reject-img
+
+#CTMbuddy
+^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/g\/advertise\/by\/openingAdv url reject
+^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/g\/advertise\/by\/adv url reject-200
+^https?:\/\/www.ctm.net\/crm_api\/crm-portal-server\/p\/by\/loyalty\/member\/ads\? url reject-200
+
+#Macau Movie
+^https?:\/\/macaumovie.com\/ad-media url reject
+
+#Namkwong
+^https?:\/\/app.namkwong.com.mo\/gasstation_app\/aBanner url reject-200
