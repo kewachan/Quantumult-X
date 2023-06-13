@@ -1,4 +1,4 @@
-hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com
+hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com
 
 #Macau Taxi
 ^https?:\/\/182.93.34.74:\d+\/taxi\/passenger\/advertisement url reject
@@ -26,3 +26,6 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbe
 #Mfood
 ^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement url reject-200
 ^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/basic\/banner url reject-200
+
+#Aomi
+^https?:\/\/interface.aomiapp.com\/aomi-ads\/ad\/ url reject-200
