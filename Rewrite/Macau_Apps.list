@@ -31,3 +31,5 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbe
 
 #Aomi
 ^https?:\/\/interface.aomiapp.com\/aomi-ads\/ad\/ url reject-200
+
+#
