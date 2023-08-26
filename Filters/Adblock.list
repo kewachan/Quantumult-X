@@ -1,5 +1,4 @@
 #My daily list
-#host, graph.instagram.com, Advertising
 host-suffix, weedbits.com, Advertising
 host-suffix, ad-api.uogroup.com, Advertising
 host-suffix, ibytedtos.com, Advertising
@@ -20,15 +19,10 @@ host-suffix, poweredby.jads.co, Advertising
 host-suffix, promo-bc.com, Advertising
 host-suffix, bongacash.com, Advertising
 host-suffix, adxadserv.com, Advertising
-host-suffix, pangolin-sdk-toutiao.com, Advertising
 host-suffix, pglstatp-toutiao.com, Advertising
-host-suffix, syndication.realsrv.com, Advertising
 host-suffix, pr.ybp.yahoo.com, Advertising
 host-suffix, geo.yahoo.com, Advertising
 host-suffix, ads.yap.yahoo.com, Advertising
-host-suffix, api.applovefrom.com, Advertising
-#host-suffix, adv.lihkg.com, Advertising
-#host-suffix, adv.lih.kg, Advertising
 
 #keyword
 host-keyword, 51yes, Advertising
