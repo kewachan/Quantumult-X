@@ -1,4 +1,4 @@
-hostname =  *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, gw.alicdn.com,*acs.m.taobao.com, connect.facebook.net, www.facebook.com
+hostname =  *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, gw.alicdn.com,*acs.m.taobao.com
 
 #xiaohongshu
 ^https?:\/\/.+\.xiaohongshu\.com\/.+(metrics|report|Report) url reject-200
@@ -61,13 +61,3 @@ hostname =  *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.
 ^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.taobao\.wireless\.home\.splash\.awesome\.get\/ url reject-200
 ^https?:\/\/(gw|heic)\.alicdn\.com\/\w{2}s\/[\w\/.-]+\.jpg_(9\d{2}|\d{4}) url reject-200
 ^https?:\/\/(gw|heic)\.alicdn\.com\/imgextra\/.+\d{4}-\d{4}\.jpg_9\d{2} url reject-200
-
-#Facebook from TPCTPCTPC
-^https?:\/\/connect\.facebook\.net\/en_US\/fbadnw\.js url reject-200
-^https?:\/\/graph\.facebook\.com\/.+activities url reject-200
-^https?:\/\/graph\.facebook\.com\/.+advertiser_id=* url reject-200
-^https?:\/\/graph\.facebook\.com\/.+events url reject-200
-^https?:\/\/graph\.facebook\.com\/network_ads_common\/* url reject-200
-^https?:\/\/www\.facebook\.com\/adnw_logging\/* url reject-200
-^https?:\/\/www\.facebook\.com\/adnw_sync\/* url reject-200
-^https?:\/\/www\.facebook\.com\/tr url reject-200

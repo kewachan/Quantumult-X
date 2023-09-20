@@ -1,4 +1,4 @@
-#My daily list
+#My Adblock list
 host-suffix, weedbits.com, Advertising
 host-suffix, ad-api.uogroup.com, Advertising
 host-suffix, ibytedtos.com, Advertising
@@ -23,6 +23,9 @@ host-suffix, pglstatp-toutiao.com, Advertising
 host-suffix, pr.ybp.yahoo.com, Advertising
 host-suffix, geo.yahoo.com, Advertising
 host-suffix, ads.yap.yahoo.com, Advertising
+
+#My tracker list
+host-suffix, netseer-ipaddr-assoc.xz.fbcdn.net, Privacy
 
 #keyword
 host-keyword, 51yes, Advertising
