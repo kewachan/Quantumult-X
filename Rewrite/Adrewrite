@@ -1,0 +1,43 @@
+hostname =  *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw
+
+#xiaohongshu
+^https?:\/\/.+\.xiaohongshu\.com\/.+(metrics|report|Report) url reject-200
+
+#Manhuaren
+^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getStartPageAds url reject-200
+^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getStartUpMessage url reject-200
+^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/ad\/getMultiAdsStrategy url reject-200
+^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/manga\/readRecommend url reject-200
+^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/manga\/getShelfRecommend url reject-200
+^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getShelfActivity url reject-200
+
+#Manhuashe
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/ads url reject-200
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/topicbytype url reject-200
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/comic\/chapterendrecommend url reject-200
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/homenav url reject-200
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/startupactivity url reject-200
+
+#Lihkg
+^https?:\/\/adv\.lihkg\.com\/www\/delivery url reject-200
+^https?:\/\/pb\.lihkg\.com\/taboola url reject-200
+^https?:\/\/pb\.lihkg\.com\/smj url reject-200
+
+#amap
+^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? url reject-200
+^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\? url reject-dict
+^https?:\/\/m5\.amap\.com\/ws\/valueadded\/ url reject
+^https?:\/\/optimus-ads\.amap\.com\/uploadimg\/ url reject
+
+#Wechat
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url script-response-body https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/Wechat.js
+^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\? url script-response-body https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js
+
+#Pintrest
+^https?:\/\/api.pinterest.com\/v3\/users\/third_party_tracking_settings\/ url reject-200
+^https?:\/\/api.pinterest.com\/v3\/feeds\/home\/\?advertising_id url reject-200
+
+#4Gamers
+^https?:\/\/img.4gamers.com.tw\/ads-media url reject
+^https?:\/\/www.4gamers.com.tw\/site\/api\/aols\/media\?slot=.* url reject
+^https:\/\/www.4gamers.com.tw\/site\/iframe-aols\/HEADER_BANNER_MOBILE\?excludeGoogleAds=false&ignoreOverwriteSlot=true url reject
