@@ -23,6 +23,8 @@ host-suffix, pglstatp-toutiao.com, Advertising
 host-suffix, pr.ybp.yahoo.com, Advertising
 host-suffix, geo.yahoo.com, Advertising
 host-suffix, ads.yap.yahoo.com, Advertising
+host-suffix, x.research.qq.com, Advertising
+host-suffix, rmonitor.qq.com, Advertising
 
 #My tracker list
 host-suffix, netseer-ipaddr-assoc.xz.fbcdn.net, Privacy

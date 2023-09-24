@@ -1,4 +1,4 @@
-hostname =  182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net
+hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com
 
 ##### Macau #####
 
@@ -91,3 +91,6 @@ hostname =  182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikb
 ^https?:\/\/cdn.ampproject.org\/rtv\/\d*\/v\d\/analytics-vendors url reject-200
 ^https?:\/\/3p.ampproject.net\/\d*\/vendor url reject-200
 ^https?:\/\/d-\d*\.ampproject.net/\d* url reject-200
+
+#QQ Browser
+^https?:\/\/kde.qq.com\/getAds url reject-200
