@@ -80,7 +80,7 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbe
 
 #Pintrest
 ^https?:\/\/api.pinterest.com\/v3\/users\/third_party_tracking_settings\/ url reject-200
-^https?:\/\/api.pinterest.com\/v3\/feeds\/home\/\?advertising_id url reject-200
+#^https?:\/\/api.pinterest.com\/v3\/feeds\/home\/\?advertising_id url reject-200
 
 #4Gamers
 ^https?:\/\/img.4gamers.com.tw\/ads-media url reject
