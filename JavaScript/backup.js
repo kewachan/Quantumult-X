@@ -11,3 +11,5 @@ function ads_remove_attribute(tag, attribute, regex) {
 }
 
 let regex = /^jnyxRd TpRPV$/g;ads_remove_attribute("div", "class", regex)
+
+
