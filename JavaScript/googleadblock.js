@@ -17,3 +17,8 @@ let regex = /^jnyxRd TpRPV$/g;
 setTimeout (function() {
 ads_remove_attribute("div", "class", regex);
 } , 10000);
+
+while (i < 1000) {
+ads_remove_attribute("div", "class", regex);
+  i++;
+}
