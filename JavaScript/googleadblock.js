@@ -15,4 +15,4 @@ let regex = /^jnyxRd TpRPV$/g;
 
 setTimeout (function() {
 ads_remove_attribute("div", "class", regex);
-} , 5000);
+} , 10000);
