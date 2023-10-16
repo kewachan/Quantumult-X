@@ -12,12 +12,10 @@ function ads_remove_attribute(tag, attribute, regex) {
 }
 
 let regex = /^jnyxRd TpRPV$/g;
-
 window.onload = ads_remove_attribute("div", "class", regex);
-alert("your script run");
 
 setTimeout (function() {
 ads_remove_attribute("div", "class", regex);
 } , 1000);
 
-
+alert("your script run");
