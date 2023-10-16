@@ -5,7 +5,7 @@ console.log(node)
 }
 
 
-for (let i = 0; i < 100; i++) {
-	setTimeout(10);
+for (let i = 0; i < 1000; i++) {
+	setTimeout(100);
   	adbclock() ;
 }
