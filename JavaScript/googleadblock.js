@@ -14,12 +14,10 @@ function ads_remove_attribute(tag, attribute, regex) {
 let regex = /^jnyxRd TpRPV$/g;
 
 
+let i = 0;
+while (i < 10) {
 setTimeout (function() {
 ads_remove_attribute("div", "class", regex);
 } , 10000);
-
-let i = 0;
-while (i < 1000) {
-ads_remove_attribute("div", "class", regex);
   i++;
 }
