@@ -5,6 +5,7 @@ function ads_remove_attribute(tag, attribute, regex) {
         if (strings !== null) {
             if (strings.match(regex)) {
                 nodelist[i].style.display = "none";
+		console.log("清理完毕!");
             }
         }
     }
