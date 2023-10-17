@@ -1,4 +1,4 @@
-hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com
+hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com
 
 ##### Macau #####
 
@@ -93,3 +93,6 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbe
 
 #QQ Browser
 ^https?:\/\/kde.qq.com\/getAds url reject-200
+
+#limbopro
+^https?:\/\/limbopro.com\/Adguard\/Adblock4limbo.function.js url reject-200
