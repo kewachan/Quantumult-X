@@ -193,3 +193,5 @@ const r=Reflect.get(...arguments);if(typeof r==='function'){return noopFunc;}
 return target[prop];},set:function(){return Reflect.set(...arguments);},});}
 if(logLevel){popup=new Proxy(popup,{get:function(target,prop){safe.uboLog('window.open / get',prop,'===',target[prop]);return Reflect.get(...arguments);},set:function(target,prop,value){safe.uboLog('window.open / set',prop,'=',value);return Reflect.set(...arguments);},});}
 return popup;}});}
+
+alert("What the Fuck with you?!");
