@@ -1,4 +1,4 @@
-hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com
+hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org
 
 ##### Macau #####
 
@@ -17,13 +17,18 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbe
 #Namkwong
 ^https?:\/\/app.namkwong.com.mo\/gasstation_app\/aBanner url reject-200
 
+#MacaoOneAccount
+^https?:\/\/mas\-mpaas.mo.gov.mo\/loggw url reject-200
+
 #Tikbee
 ^https?:\/\/api.tikbee.com\/v2\/wm\/ad\/getByKey\? url reject
 ^https?:\/\/api.tikbee.com\/v1\/advertis\/getAdByKey\? url reject
 ^https?:\/\/api.tikbee.com\/v1\/advertis\/getByKey\? url reject
+^http?:\/\/statistic.live.126.net\/statics\/report\/common\/form url reject-200
 
 #MPay
 ^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ url reject-200
+^https?:\/\/quicktracking\-api.macaupass.com url reject-200
 
 #Mfood
 ^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement url reject-200
@@ -96,3 +101,8 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.ctm.net, *.tikbe
 
 #limbopro
 ^https?:\/\/limbopro.com\/Adguard\/Adblock4limbo.function.js url reject-200
+
+#Wikipedia
+(https?:\/\/zh.m.wikipedia.org\/)(wiki)(\/.+) url 302 $1zh-hk$3
+(https?:\/\/zh.m.wikipedia.org\/)(zh-cn)(\/.+) url 302 $1zh-hk$3
+(https?:\/\/zh.m.wikipedia.org\/)(zh-hans)(\/.+) url 302 $1zh-hk$3
