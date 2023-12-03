@@ -39,7 +39,6 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.ne
 #Aomi
 ^https?:\/\/interface.aomiapp.com\/aomi-ads\/ad\/ url reject-200
 
-
 ##### Others #####
 
 #xiaohongshu
@@ -106,6 +105,8 @@ hostname = 182.93.34.74, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.ne
 (https?:\/\/zh.m.wikipedia.org\/)(wiki)(\/.+) url 302 $1zh-hk$3
 (https?:\/\/zh.m.wikipedia.org\/)(zh-cn)(\/.+) url 302 $1zh-hk$3
 (https?:\/\/zh.m.wikipedia.org\/)(zh-hans)(\/.+) url 302 $1zh-hk$3
+(https?:\/\/zh.m.wikipedia.org\/)(zh)(\/.+) url 302 $1zh-hk$3
 (https?:\/\/zh.wikipedia.org\/)(wiki)(\/.+) url 302 $1zh-hk$3
 (https?:\/\/zh.wikipedia.org\/)(zh-cn)(\/.+) url 302 $1zh-hk$3
 (https?:\/\/zh.wikipedia.org\/)(zh-hans)(\/.+) url 302 $1zh-hk$3
+(https?:\/\/zh.wikipedia.org\/)(zh)(\/.+) url 302 $1zh-hk$3
