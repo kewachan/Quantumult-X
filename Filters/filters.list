@@ -1,3 +1,61 @@
+##### Direct #####
+
+#Dcard
+host-suffix, dcard.tw, direct
+
+#exodus
+host-keyword, exodus, direct
+host-suffix, magiceden.dev, direct
+host-suffix, ramp.network, direct
+
+#radio
+host, live3.tdm.com.mo, direct
+host, live4.tdm.com.mo, direct
+host, coolism-webaac.cdn.byteark.com, direct
+
+#PlayStation
+host-suffix, playstation.net, direct
+host-suffix, playstation.com, direct
+host-suffix, playstationnetwork.com, direct
+host-suffix, account.sony.com, direct
+host-suffix, gaikai.com, direct
+ip-asn, 11795, direct
+
+#steam
+ip-asn, 32590, direct
+
+#Shell
+host-suffix, shell.com.cn, direct
+
+#Buyee
+host-suffix, buyee.jp, direct
+
+#TP-Link
+host-suffix, tplinkcloud.com.cn, direct
+ip-cidr, 45.64.22.0/24, direct
+
+#Bilibili
+host-suffix, biliapi.net, direct
+host-suffix, bilibili.com, direct
+host-suffix, hdslb.com, direct
+
+#XiaoMi
+host-suffix, xiaomi.net, direct
+host-suffix, mi.com, direct
+host, miot-spec.org, direct
+host-suffix, youpin.mi-img.com, direct
+host-suffix, xiaomiyoupin.com, direct
+
+#Taobao
+host, trade-acs.m.taobao.com, direct
+host, trade-acs.wapa.taobao.com, direct
+host, px.ucweb.com, direct
+
+#Wechat Tiny Tools
+host-suffix, wuuxiang.com, direct
+
+##### Reject #####
+
 #My tracker list
 host-suffix, netseer-ipaddr-assoc.xz.fbcdn.net, Privacy
 
