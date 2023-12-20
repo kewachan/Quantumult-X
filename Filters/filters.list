@@ -1,5 +1,30 @@
 ##### Direct #####
 
+### International ###
+
+#Apple Pay
+host, bag.itunes.apple.com, direct
+host, smp-device-content.apple.com, direct
+host-suffix, gs-loc.apple.com, direct
+host-suffix, ess.apple.com, direct
+
+#Apple Subscription
+host, speedysub.itunes.apple.com, direct
+host, fpinit.itunes.apple.com, direct
+
+#Microsoft Teams
+host, teams.events.data.microsoft.com, direct
+host-suffix, teams.cdn.live.net, direct
+host-suffix, teams.live.com, direct
+host-suffix, teams.microsoft.com, direct
+ip-cidr, 52.112.0.0/14, direct
+ip-cidr, 52.96.0.0/12, direct
+
+#Oracle Cloud
+host, console-telemetry.oci.oraclecloud.com, direct
+host-suffix, oracleinfinity.io, direct
+host-suffix, oraclecloud.com, direct
+
 #Dcard
 host-suffix, dcard.tw, direct
 
@@ -24,11 +49,14 @@ ip-asn, 11795, direct
 #steam
 ip-asn, 32590, direct
 
-#Shell
-host-suffix, shell.com.cn, direct
 
 #Buyee
 host-suffix, buyee.jp, direct
+
+### China ###
+
+#Shell
+host-suffix, shell.com.cn, direct
 
 #TP-Link
 host-suffix, tplinkcloud.com.cn, direct
@@ -53,6 +81,37 @@ host, px.ucweb.com, direct
 
 #Wechat Tiny Tools
 host-suffix, wuuxiang.com, direct
+
+#HengQin car registration
+host-suffix, hengqin.gov.cn, direct
+host, service.dcloud.net.cn, direct
+
+#BOC CN
+host-suffix, boc.cn, direct
+
+### Macau ###
+
+#BNU
+host-suffix, bnu.com.mo, direct
+
+#ICBC
+host-suffix, icbc.com.cn, direct
+host-suffix, icbc.com.mo, direct
+
+#Macao2North car registration
+host-suffix, dcloud.net.cn, direct
+host, macaoapply.singlewindow.gd.cn, direct
+host, 2338a42b-3ec3-4ec5-81c8-2fec997847a8.bspapp.com, direct
+
+#Macau government
+host-suffix, gov.mo, direct
+
+#Kiang Wu hospital
+host-suffix, kwh.org.mo, direct
+
+#Oasis parking
+host, skyoasis.itmacau.com, direct
+host-suffix, skyoasis.com.mo, direct
 
 ##### Reject #####
 
