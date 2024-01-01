@@ -33,6 +33,11 @@ host-keyword, exodus, direct
 host-suffix, magiceden.dev, direct
 host-suffix, ramp.network, direct
 
+#POE
+host, www.quora.com, direct
+host-suffix, poe.com, direct
+host-keyword, poecdn, direct
+
 #radio
 host, live3.tdm.com.mo, direct
 host, live4.tdm.com.mo, direct
