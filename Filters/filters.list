@@ -20,6 +20,9 @@ host-suffix, teams.microsoft.com, direct
 ip-cidr, 52.112.0.0/14, direct
 ip-cidr, 52.96.0.0/12, direct
 
+#Microsoft Copilot
+host, sydney.bing.com, direct
+
 #Oracle Cloud
 host, console-telemetry.oci.oraclecloud.com, direct
 host-suffix, oracleinfinity.io, direct
@@ -53,7 +56,6 @@ ip-asn, 11795, direct
 
 #steam
 ip-asn, 32590, direct
-
 
 #Buyee
 host-suffix, buyee.jp, direct
