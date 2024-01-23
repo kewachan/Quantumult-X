@@ -5,6 +5,7 @@
 #Apple Pay
 host, bag.itunes.apple.com, direct
 host, smp-device-content.apple.com, direct
+host-suffix, ls.apple.com, direct
 host-suffix, gs-loc.apple.com, direct
 host-suffix, ess.apple.com, direct
 
@@ -27,6 +28,9 @@ host, sydney.bing.com, direct
 host, console-telemetry.oci.oraclecloud.com, direct
 host-suffix, oracleinfinity.io, direct
 host-suffix, oraclecloud.com, direct
+
+#MasterCard
+host-suffix, mastercard.com, direct
 
 #Dcard
 host-suffix, dcard.tw, direct
