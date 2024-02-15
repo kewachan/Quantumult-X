@@ -73,11 +73,6 @@ host-suffix, shell.com.cn, direct
 host-suffix, tplinkcloud.com.cn, direct
 ip-cidr, 45.64.22.0/24, direct
 
-#Bilibili
-host-suffix, biliapi.net, direct
-host-suffix, bilibili.com, direct
-host-suffix, hdslb.com, direct
-
 #XiaoMi
 host-suffix, xiaomi.net, direct
 host-suffix, mi.com, direct
