@@ -1,6 +1,8 @@
-##### Direct #####
+###################################
+############## Direct ############### 
+###################################
 
-### International ###
+############ International ############
 
 #Apple Pay
 host, bag.itunes.apple.com, direct
@@ -64,7 +66,7 @@ ip-asn, 32590, direct
 #Buyee
 host-suffix, buyee.jp, direct
 
-### China ###
+############ China ############
 
 #Shell
 host-suffix, shell.com.cn, direct
@@ -92,10 +94,13 @@ host-suffix, wuuxiang.com, direct
 host-suffix, hengqin.gov.cn, direct
 host, service.dcloud.net.cn, direct
 
+#12123#
+host-suffix, 122.gov.cn, direct
+
 #BOC CN
 host-suffix, boc.cn, direct
 
-### Macau ###
+############ Macau ############
 
 #BNU
 host-suffix, bnu.com.mo, direct
@@ -119,7 +124,9 @@ host-suffix, kwh.org.mo, direct
 host, skyoasis.itmacau.com, direct
 host-suffix, skyoasis.com.mo, direct
 
-##### Reject #####
+##############################
+############ Reject ############
+##############################
 
 #My tracker list
 host-suffix, netseer-ipaddr-assoc.xz.fbcdn.net, Privacy
