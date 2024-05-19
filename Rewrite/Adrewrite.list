@@ -1,4 +1,4 @@
-hostname = 182.93.34.74, 8.134.10.48, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org
+hostname = 182.93.34.74, 8.134.10.48, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.googlevideo.com, youtubei.googleapis.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org
 
 ##### Macau #####
 
@@ -43,8 +43,13 @@ hostname = 182.93.34.74, 8.134.10.48, macaumovie.com, app.namkwong.com.mo, *.gov
 
 ##### Others #####
 
+#Youtube#
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch) url script-request-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+ url script-response-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch) url script-response-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js
+
 #xiaohongshu
-^https?:\/\/.+\.xiaohongshu\.com\/.+(metrics|report|Report) url reject-200
+^https?:\/\/.+\.xiaohongshu\.com\/.+(collect|metrics|report|Report) url reject-200
 
 #Manhuaren
 ^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getStartPageAds url reject-200
