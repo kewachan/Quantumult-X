@@ -10,8 +10,8 @@ hostname = 182.93.34.74, 8.134.10.48, , *.maasplus.com, macaumovie.com, app.namk
 
 ^https?:\/\/182.93.34.74:\d+\/taxi\/passenger\/advertisement url reject
 ^https?:\/\/182.93.34.74:\d+\/gpsmcweb\/\/Image url reject-img
-(http?:\/\/plus\.maasplus\.com\/prod-api\/app\/advert\/list\?bannerPosition=0\&+)(type=1) url 302 $1type=0
-^http?:\/\/plus\.maasplus\.com\/prod-api\/app\/advert\/list\?adPage=travel url reject-200
+(https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=1) url 302 $1type=0
+^https?:\/\/plus\.maasplus\.com\/prod-api\/app\/advert\/list\?adPage=travel url reject-200
 
 #CTMbuddy
 ^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/g\/advertise\/by\/openingAdv url reject
