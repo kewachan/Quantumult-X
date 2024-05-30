@@ -1,15 +1,8 @@
-hostname = 182.93.34.74, 8.134.10.48, *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.googlevideo.com, youtubei.googleapis.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org
+hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.googlevideo.com, youtubei.googleapis.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org
 
 ##### Macau #####
 
 #Macau Taxi
-^https?:\/\/182.93.34.74:\d+\/taxi\/passenger\/advertisement url reject
-^https?:\/\/182.93.34.74:\d+\/gpsmcweb\/\/Image url reject-img
-(http?:\/\/8.134.10.48:8080\/prod-api\/app\/advert\/list\?bannerPosition=0\&+)(type=1) url 302 $1type=0
-^http?:\/\/8.134.10.48:8080\/prod-api\/app\/advert\/list\?adPage=travel url reject-200
-
-^https?:\/\/plus.maasplus.com\/taxi\/passenger\/advertisement url reject
-^https?:\/\/plus.maasplus.com\/gpsmcweb\/\/Image url reject-img
 (https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=1) url 302 $1type=0
 (https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=3) url 302 $1type=0
 ^https?:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?adPage=travel url reject-200
