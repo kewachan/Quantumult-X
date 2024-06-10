@@ -15,6 +15,9 @@ host-suffix, ess.apple.com, direct
 host, speedysub.itunes.apple.com, direct
 host, fpinit.itunes.apple.com, direct
 
+#Shazam
+host, api.shazam.apple.com, direct
+
 #Microsoft Teams
 host, teams.events.data.microsoft.com, direct
 host-suffix, teams.cdn.live.net, direct
