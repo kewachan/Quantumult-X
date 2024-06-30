@@ -14,7 +14,7 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 
 #Macau Movie
 ^https?:\/\/macaumovie.com\/ad-media url reject
-^https?:\/\/macaumovie.com\/api\/v1\/ad url reject
+^https?:\/\/macaumovie.com\/api\/v1\/ad url reject-200
 
 #Namkwong
 ^https?:\/\/app.namkwong.com.mo\/gasstation_app\/aBanner url reject-200
