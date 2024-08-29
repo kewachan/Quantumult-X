@@ -85,6 +85,7 @@ host-suffix, mi.com, direct
 host, miot-spec.org, direct
 host-suffix, youpin.mi-img.com, direct
 host-suffix, xiaomiyoupin.com, direct
+ip-cidr, 47.241.16.242/32, direct
 
 #Taobao
 host, trade-acs.m.taobao.com, direct
