@@ -8,8 +8,8 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 ^https?:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?adPage=travel url reject-200
 
 #CTMbuddy
-^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/g\/advertise\/by\/openingAdv url reject
-^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/g\/advertise\/by\/adv url reject-200
+^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/p\/advertise\/by\/adv url reject
+^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/p\/advertise\/by\/openingAdv url reject
 ^https?:\/\/www.ctm.net\/crm_api\/crm-portal-server\/p\/by\/loyalty\/member\/ads\? url reject-200
 
 #Macau Movie
