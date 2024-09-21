@@ -63,8 +63,8 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/startupactivity url reject-200
 
 #Lihkg
-^https?:\/\/adv\.lihkg\.com\/www\/delivery url reject-200
 ^https?:\/\/pb\.lihkg\.com\/taboola url reject-200
+^https?:\/\/pb\.lihkg\.com\/smj url reject-200
 
 #amap
 ^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? url reject-200
