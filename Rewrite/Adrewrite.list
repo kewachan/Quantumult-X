@@ -1,4 +1,4 @@
-hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.googlevideo.com, youtubei.googleapis.com, www.youtube.com, s.youtube.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org, -redirector*.googlevideo.com
+hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, *.googlevideo.com, youtubei.googleapis.com, www.youtube.com, s.youtube.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org, -redirector*.googlevideo.com
 
 ##### Macau #####
 
@@ -61,10 +61,6 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/comic\/chapterendrecommend url reject-200
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/homenav url reject-200
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/startupactivity url reject-200
-
-#Lihkg
-^https?:\/\/pb\.lihkg\.com\/taboola url reject-200
-^https?:\/\/pb\.lihkg\.com\/smj url reject-200
 
 #amap
 ^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? url reject-200
