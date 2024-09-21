@@ -55,14 +55,6 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 #xiaohongshu
 ^https?:\/\/.+\.xiaohongshu\.com\/.+(collect|metrics|report|Report) url reject-200
 
-#Manhuaren
-^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getStartPageAds url reject-200
-^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getStartUpMessage url reject-200
-^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/ad\/getMultiAdsStrategy url reject-200
-^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/manga\/readRecommend url reject-200
-^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/manga\/getShelfRecommend url reject-200
-^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getShelfActivity url reject-200
-
 #Manhuashe
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/ads url reject-200
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/topicbytype url reject-200
@@ -73,7 +65,6 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 #Lihkg
 ^https?:\/\/adv\.lihkg\.com\/www\/delivery url reject-200
 ^https?:\/\/pb\.lihkg\.com\/taboola url reject-200
-^https?:\/\/pb\.lihkg\.com\/smj url reject-200
 
 #amap
 ^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? url reject-200
