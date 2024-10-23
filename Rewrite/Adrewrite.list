@@ -29,7 +29,7 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 ^http?:\/\/statistic.live.126.net\/statics\/report\/common\/form url reject-200
 
 #MPay
-^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ url reject-200
+#^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ url reject-200
 ^https?:\/\/quicktracking\-api.macaupass.com url reject-200
 
 #Mfood
@@ -49,6 +49,7 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 ^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads url reject-200
 ^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) url reject-200
 ^https?:\/\/s\.youtube\.com\/api\/stats\/qoe\?adcontext url reject-200
+^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v\d\/player\/ad_break url reject
 ^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch) url script-request-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.request.preview.js
 ^https?:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch) url script-response-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js
 
