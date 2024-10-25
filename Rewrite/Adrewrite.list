@@ -29,7 +29,7 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 ^http?:\/\/statistic.live.126.net\/statics\/report\/common\/form url reject-200
 
 #MPay
-#^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ url reject-200
+^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ url reject-200
 ^https?:\/\/quicktracking\-api.macaupass.com url reject-200
 
 #Mfood
