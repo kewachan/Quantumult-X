@@ -51,7 +51,6 @@ host-keyword, poecdn, direct
 host, live3.tdm.com.mo, direct
 host, live4.tdm.com.mo, direct
 host, coolism-webaac.cdn.byteark.com, direct
-host, radio.vpsthai.net, direct
 
 #PlayStation
 host-suffix, playstation.net, direct
