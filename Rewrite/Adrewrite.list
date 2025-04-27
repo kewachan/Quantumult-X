@@ -1,4 +1,4 @@
-hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, youtubei.googleapis.com, *.googlevideo.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org, -redirector*.googlevideo.com
+hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, youtubei.googleapis.com, *.googlevideo.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org
 
 ##### Macau #####
 
@@ -46,7 +46,7 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 #Youtube#
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad url reject-200
 ###lite###
-https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ url 307 https://stream.maasea.workers.dev/$1?blockUpload=true&blockImmersive=false&blockShorts=trus&captionLang=off&lyricLang=off&$4
+https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ url 307 https://stream.maasea.workers.dev/$1?blockUpload=true&blockImmersive=false&blockShorts=false&captionLang=off&lyricLang=off&$4
 ###full###
 #^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ url script-response-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js
 
