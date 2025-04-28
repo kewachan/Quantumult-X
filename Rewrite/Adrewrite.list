@@ -46,9 +46,9 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 #Youtube#
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad url reject-200
 ###lite###
-https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ url 307 https://stream.maasea.workers.dev/$1?blockUpload=true&blockImmersive=false&blockShorts=false&captionLang=off&lyricLang=off&$4
+#https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ url 307 https://stream.maasea.workers.dev/$1?blockUpload=true&blockImmersive=false&blockShorts=false&captionLang=off&lyricLang=off&$4
 ###full###
-#^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ url script-response-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js
+^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$ url script-response-body https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js
 
 #xiaohongshu
 ^https?:\/\/.+\.xiaohongshu\.com\/.+(collect|metrics|report|Report) url reject-200
