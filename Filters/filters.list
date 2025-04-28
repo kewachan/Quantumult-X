@@ -66,6 +66,9 @@ ip-asn, 32590, direct
 #Buyee
 host-suffix, buyee.jp, direct
 
+#Maaseas Youtube Adblock
+host, stream.maasea.workers.dev, direct
+
 ############ China ############
 
 #Shell
