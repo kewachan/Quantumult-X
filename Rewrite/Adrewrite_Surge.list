@@ -1,0 +1,94 @@
+^http://img61\.ddimg\.cn/upload_img
+
+
+##### Macau #####
+
+#Macau Taxi
+(https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=1) 302
+(https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=3) 302
+^https?:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?adPage=travel - reject
+
+#CTMbuddy
+^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/\w\/advertise\/by\/adv - reject
+^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/\w\/advertise\/by\/openingAdv - reject
+^https?:\/\/www.ctm.net\/crm_api\/crm-portal-server\/\w\/by\/loyalty\/member\/ads\? - reject
+
+#Macau Movie
+^https?:\/\/macaumovie.com\/ad-media - reject
+^https?:\/\/macaumovie.com\/api\/v1\/ad - reject
+
+#Namkwong
+^https?:\/\/app.namkwong.com.mo\/gasstation_app\/aBanner - reject
+
+#MacaoOneAccount 
+^https?:\/\/mas\-mpaas.mo.gov.mo\/loggw - reject
+
+#Tikbee
+^https?:\/\/api.tikbee.com\/v2\/wm\/ad\/getByKey\? - reject
+^https?:\/\/api.tikbee.com\/v1\/advertis\/getAdByKey\? - reject
+^https?:\/\/api.tikbee.com\/v1\/advertis\/getByKey\? - reject
+^http?:\/\/statistic.live.126.net\/statics\/report\/common\/form - reject
+
+#MPay
+#^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ - reject
+^https?:\/\/quicktracking\-api.macaupass.com - reject
+
+#Mfood
+^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement - reject
+^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/basic\/banner - reject
+^https?:\/\/release.userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement - reject
+^https?:\/\/release.userside.api.o2o.mfoodapp.com\/orgs\/basic\/banner - reject
+
+#Aomi
+^https?:\/\/interface.aomiapp.com\/aomi-ads\/ad\/ - reject
+
+##### Others #####
+
+#xiaohongshu
+^https?:\/\/.+\.xiaohongshu\.com\/.+(collect|metrics|report|Report) - reject
+
+#Manhuashe
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/ads - reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/topicbytype - reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/comic\/chapterendrecommend - reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/homenav - reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/startupactivity - reject
+
+#Lihkg
+^https?:\/\/adv\.lihkg\.com\/www\/delivery - reject
+^https?:\/\/pb\.lihkg\.com\/taboola - reject
+^https?:\/\/pb\.lihkg\.com\/smj - reject
+
+#amap
+^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? - reject
+^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\? - reject
+^https?:\/\/m5\.amap\.com\/ws\/valueadded\/ - reject
+^https?:\/\/optimus-ads\.amap\.com\/uploadimg\/ - reject
+
+#Wechat
+^https?:\/\/.+extshort\.weixin\.qq\.com\/cgi-bin\/mmoc-bin\/ad\/ - reject
+^https?:\/\/.+\.weixin\.qq\.com\/.+report\? - reject
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/.+relatedarticle\? - reject
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/.+ad\? - reject
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/.+monitor\? - reject
+^https?:\/\/.+\.weixin\.qq\.com\/mp\/cps_product_info - reject
+^(http|https):\/\/dns.weixin.qq.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
+
+#Pintrest
+^https?:\/\/api.pinterest.com\/v3\/users\/third_party_tracking_settings\/ - reject
+
+#4Gamers
+^https?:\/\/img.4gamers.com.tw\/ads-media - reject
+^https?:\/\/www.4gamers.com.tw\/site\/api\/aols\/media\?slot=.* - reject
+^https:\/\/www.4gamers.com.tw\/site\/iframe-aols\/HEADER_BANNER_MOBILE\?excludeGoogleAds=false&ignoreOverwriteSlot=true - reject
+
+#AMP tracker
+^https?:\/\/cdn.ampproject.org\/rtv\/\d*\/v\d\/analytics-vendors - reject
+^https?:\/\/3p.ampproject.net\/\d*\/vendor - reject
+^https?:\/\/d-\d*\.ampproject.net/\d* - reject
+
+#QQ Browser
+^https?:\/\/kde.qq.com\/getAds - reject
+
+#limbopro
+^https?:\/\/limbopro.com\/Adguard\/Adblock4limbo.function.js - reject
