@@ -27,7 +27,7 @@ IP-CIDR, 52.112.0.0/14
 IP-CIDR, 52.96.0.0/12
 
 #Google
-DOMAIN, google.com
+DOMAIN, www.google.com
 
 #Oracle Cloud
 DOMAIN, console-telemetry.oci.oraclecloud.com
@@ -43,7 +43,6 @@ DOMAIN-SUFFIX, dcard.tw
 #POE
 DOMAIN, www.quora.com
 DOMAIN-SUFFIX, poe.com
-DOMAIN-keyword, poecdn
 
 #radio
 DOMAIN, live3.tdm.com.mo
