@@ -1,8 +1,8 @@
-^http://img61\.ddimg\.cn/upload_img
+#!name=kewchan rewrite
+#!author=kewachan
 
-
+[URL Rewrite]
 ##### Macau #####
-
 #Macau Taxi
 (https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=1) 302
 (https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=3) 302
@@ -89,6 +89,3 @@
 
 #QQ Browser
 ^https?:\/\/kde.qq.com\/getAds - reject
-
-#limbopro
-^https?:\/\/limbopro.com\/Adguard\/Adblock4limbo.function.js - reject
