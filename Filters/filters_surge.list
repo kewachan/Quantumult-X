@@ -37,11 +37,6 @@ DOMAIN-SUFFIX, mastercard.com
 #Dcard
 DOMAIN-SUFFIX, dcard.tw
 
-#exodus
-DOMAIN-keyword, exodus
-DOMAIN-SUFFIX, magiceden.dev
-DOMAIN-SUFFIX, ramp.network
-
 #POE
 DOMAIN, www.quora.com
 DOMAIN-SUFFIX, poe.com
