@@ -69,6 +69,10 @@ host-suffix, buyee.jp, direct
 #Maaseas Youtube Adblock
 host, stream.maasea.workers.dev, direct
 
+#SSH
+host, kenichi-tyo1.duckdns.org, direct
+host, kenichi-tyo2.duckdns.org, direct
+
 ############ China ############
 
 #Shell
