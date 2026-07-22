@@ -1,42 +1,42 @@
 ############ International ############
 
 #Apple Pay
-HOST, bag.itunes.apple.com
-HOST, smp-device-content.apple.com
-HOST-SUFFIX, ess.apple.com
+host, bag.itunes.apple.com, proxy
+host, smp-device-content.apple.com, proxy
+host-suffix, ess.apple.com, proxy
 
 #Apple Subscription
-HOST, speedysub.itunes.apple.com
-HOST, fpinit.itunes.apple.com
+host, speedysub.itunes.apple.com, proxy
+host, fpinit.itunes.apple.com, proxy
 
 #Oracle Cloud
-HOST, console-telemetry.oci.oraclecloud.com
-HOST-SUFFIX, oracleinfinity.io
-HOST-SUFFIX, oraclecloud.com
+host, console-telemetry.oci.oraclecloud.com, proxy
+host-suffix, oracleinfinity.io, proxy
+host-suffix, oraclecloud.com, proxy
 
 #MasterCard
-HOST-SUFFIX, mastercard.com
+host-suffix, mastercard.com, proxy
 
 #radio
-HOST, coolism-web.cdn.byteark.com
-HOST, streaming.flexconnect.net
-HOST-SUFFIX, theradioapp.com
+host, coolism-web.cdn.byteark.com, proxy
+host, streaming.flexconnect.net, proxy
+host-suffix, theradioapp.com, proxy
 
 #HKTVmall
-HOST-KEYWORD, hktvmall
+host-keyword, hktvmall, proxy
 
 #Maaseas Youtube Adblock
-HOST, stream.maasea.workers.dev
+host, stream.maasea.workers.dev, proxy
 
 ############ China ############
 
 #XiaoMi
-HOST-SUFFIX, xiaomi.net
-HOST-SUFFIX, mi.com
-HOST, miot-spec.org
-HOST-SUFFIX, youpin.mi-img.com
-HOST-SUFFIX, xiaomiyoupin.com
-HOST-SUFFIX, mijia.tech
+host-suffix, xiaomi.net, proxy
+host-suffix, mi.com, proxy
+host, miot-spec.org, proxy
+host-suffix, youpin.mi-img.com, proxy
+host-suffix, xiaomiyoupin.com, proxy
+host-suffix, mijia.tech, proxy
 
 #12123#
-HOST-SUFFIX, 122.gov.cn
+host-suffix, 122.gov.cn, proxy
