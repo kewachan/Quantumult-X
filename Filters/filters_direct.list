@@ -6,9 +6,6 @@ host-suffix, recaptcha.net, direct
 #Pokemon TCGP
 host-keyword, player-api-prod, direct
 
-#Youtube subtitle service
-url-regex, ^https:\/\/www.youtube.com\/api\/timedtext+, direct
-
 #Lrclib
 host-keyword, lrclib, direct
 
