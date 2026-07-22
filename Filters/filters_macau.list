@@ -1,0 +1,57 @@
+
+############ International ############
+
+#Dcard
+host-suffix, dcard.tw
+
+#Apple update CDN
+host-suffix, cdn-apple.com
+
+#Apple GrandSlam Authentication
+host, gsa.apple.com
+
+#Youtube EI
+#host, youtubei.googleapis.com
+
+#RandomArt
+host-suffix, randomdailyart.com
+
+#BasaltArt
+host-suffix, basalt.yevgenglukhov.com
+
+#Artvee
+host-suffix, artvee.com
+
+############ China ############
+
+#Taobao
+host, trade-acs.m.taobao.com
+host, trade-acs.wapa.taobao.com
+host, px.ucweb.com
+
+#TP-Link
+host-suffix, tplinkcloud.com.cn
+
+#Netease
+host-suffix, easebar.com
+
+#xiaoyakankan
+host-keyword, kkzycdn
+host-keyword, bfikuncdn
+
+############ Macau ############
+
+#radio
+host-suffix, tdm.com.mo
+
+#CTM
+host-suffix, ctm.net
+
+#Oasis parking
+host-keyword, skyoasis
+
+#Macau government
+host-suffix, gov.mo
+
+#AXA
+host-suffix, axa.com.hk

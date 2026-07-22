@@ -1,0 +1,31 @@
+
+############ International ############
+
+#Recaptcha
+host-suffix, recaptcha.net
+
+#Pokemon TCGP
+host-keyword, player-api-prod
+
+#Youtube subtitle service
+url-regex, ^https:\/\/www.youtube.com\/api\/timedtext+
+
+#Lrclib
+host-keyword, lrclib
+
+############ China ############
+
+#HengQin car registration
+host-suffix, hengqin.gov.cn
+
+#Macao2North car registration
+host-suffix, dcloud.net.cn
+host-suffix, singlewindow.gd.cn
+
+############ Macau ############
+
+#SSH
+host, freco.synology.me
+host, kewachan.ddns.net
+host, kenichi-tyo1.duckdns.org
+host, kenichi-tyo2.duckdns.org
