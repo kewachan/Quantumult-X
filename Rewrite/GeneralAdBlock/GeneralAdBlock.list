@@ -1,0 +1,10 @@
+hostname = comicapi.manhuashe.com, meta.wikimedia.org, www.google.com, zh.wikipedia.org
+
+# Google Search sponsored results and app promotion
+^https?:\/\/(www\.)?google\.[^\/]+\/search(?:\/.*)?(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/google-adblock.js
+
+# Manhuashe welfare tab bar
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/.+?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/manhuashe-adblock.js
+
+# Wikipedia variant dialog and CentralNotice banners
+^https?:\/\/(?:zh\.wikipedia\.org\/w\/load\.php\?.*modules=ext\.gadget\.VariantAllyDialog(?:&.*)?|zh\.wikipedia\.org\/w\/api\.php\?.*page=Template(?:%3A|:)AdvancedSiteNotices(?:%2F|\/)ajax(?:&.*)?|meta\.wikimedia\.org\/w\/index\.php\?.*title=Special(?:%3A|:)BannerLoader(?:&.*)?)$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/wikipedia-adblock.js
