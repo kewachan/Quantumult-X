@@ -1,0 +1,16 @@
+hostname = *.googlevideo.com, youtubei.googleapis.com, www.youtube.com
+
+# YouTube Enhance for Quantumult X
+# Defaults inherited from the source scripts:
+# captionLang=off, blockUpload=true, blockImmersive=true, blockShorts=false
+
+# Remove feed/player advertisements, enable background playback and expose translated captions
+^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config))(\?(.*))?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.response.js
+
+# Process encrypted initplayback requests and YouTube event configuration
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.* url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js
+
+# Mark translated caption requests and merge bilingual caption responses
+^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*tlang=[^&]+(?:&|$) url script-request-header https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.caption.js
+^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*(?:enhance_)?tlang=[^&]+(?:&|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.caption.js
