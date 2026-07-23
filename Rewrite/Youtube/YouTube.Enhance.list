@@ -1,8 +1,8 @@
 hostname = *.googlevideo.com, youtubei.googleapis.com
 
 # YouTube and YouTube Music Enhance for Quantumult X
-# Defaults: captionLang=off, blockUpload=true, blockImmersive=true, blockShorts=false
+# Defaults: captionLang=zh-Hant, blockUpload=true, blockImmersive=true, blockShorts=false
 
 ^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config))(\?(.*))?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.response.js
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.* url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js
-^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event url script-request-header https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js
