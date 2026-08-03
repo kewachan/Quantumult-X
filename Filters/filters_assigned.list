@@ -1,42 +1,42 @@
 ############ International ############
 
 #Apple Pay
-host, bag.itunes.apple.com
-host, smp-device-content.apple.com
-host-suffix, ess.apple.com
+host, bag.itunes.apple.com, proxy
+host, smp-device-content.apple.com, proxy
+host-suffix, ess.apple.com, proxy
 
 #Apple Subscription
-host, speedysub.itunes.apple.com
-host, fpinit.itunes.apple.com
+host, speedysub.itunes.apple.com, proxy
+host, fpinit.itunes.apple.com, proxy
 
 #Oracle Cloud
-host, console-telemetry.oci.oraclecloud.com
-host-suffix, oracleinfinity.io
-host-suffix, oraclecloud.com
+host, console-telemetry.oci.oraclecloud.com, proxy
+host-suffix, oracleinfinity.io, proxy
+host-suffix, oraclecloud.com, proxy
 
 #MasterCard
-host-suffix, mastercard.com
+host-suffix, mastercard.com, proxy
 
 #radio
-host, coolism-web.cdn.byteark.com
-host, streaming.flexconnect.net
-host-suffix, theradioapp.com
+host, coolism-web.cdn.byteark.com, proxy
+host, streaming.flexconnect.net, proxy
+host-suffix, theradioapp.com, proxy
 
 #HKTVmall
-host-keyword, hktvmall
+host-keyword, hktvmall, proxy
 
 #Maaseas Youtube Adblock
-host, stream.maasea.workers.dev
+host, stream.maasea.workers.dev, proxy
 
 ############ China ############
 
 #XiaoMi
-host-suffix, xiaomi.net
-host-suffix, mi.com
-host, miot-spec.org
-host-suffix, youpin.mi-img.com
-host-suffix, xiaomiyoupin.com
-host-suffix, mijia.tech
+host-suffix, xiaomi.net, proxy
+host-suffix, mi.com, proxy
+host, miot-spec.org, proxy
+host-suffix, youpin.mi-img.com, proxy
+host-suffix, xiaomiyoupin.com, proxy
+host-suffix, mijia.tech, proxy
 
 #12123#
-host-suffix, 122.gov.cn
+host-suffix, 122.gov.cn, proxy

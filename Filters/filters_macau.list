@@ -1,56 +1,56 @@
 ############ International ############
 
 #Dcard
-host-suffix, dcard.tw
+host-suffix, dcard.tw, proxy
 
 #Apple update CDN
-host-suffix, cdn-apple.com
+host-suffix, cdn-apple.com, proxy
 
 #Apple GrandSlam Authentication
-host, gsa.apple.com
+host, gsa.apple.com, proxy
 
 #Youtube EI
 #host, youtubei.googleapis.com
 
 #RandomArt
-host-suffix, randomdailyart.com
+host-suffix, randomdailyart.com, proxy
 
 #BasaltArt
-host-suffix, basalt.yevgenglukhov.com
+host-suffix, basalt.yevgenglukhov.com, proxy
 
 #Artvee
-host-suffix, artvee.com
+host-suffix, artvee.com, proxy
 
 ############ China ############
 
 #Taobao
-host, trade-acs.m.taobao.com
-host, trade-acs.wapa.taobao.com
-host, px.ucweb.com
+host, trade-acs.m.taobao.com, proxy
+host, trade-acs.wapa.taobao.com, proxy
+host, px.ucweb.com, proxy
 
 #TP-Link
-host-suffix, tplinkcloud.com.cn
+host-suffix, tplinkcloud.com.cn, proxy
 
 #Netease
-host-suffix, easebar.com
+host-suffix, easebar.com, proxy
 
 #xiaoyakankan
-host-keyword, kkzycdn
-host-keyword, bfikuncdn
+host-keyword, kkzycdn, proxy
+host-keyword, bfikuncdn, proxy
 
 ############ Macau ############
 
 #radio
-host-suffix, tdm.com.mo
+host-suffix, tdm.com.mo, proxy
 
 #CTM
-host-suffix, ctm.net
+host-suffix, ctm.net, proxy
 
 #Oasis parking
-host-keyword, skyoasis
+host-keyword, skyoasis, proxy
 
 #Macau government
-host-suffix, gov.mo
+host-suffix, gov.mo, proxy
 
 #AXA
-host-suffix, axa.com.hk
+host-suffix, axa.com.hk, proxy
