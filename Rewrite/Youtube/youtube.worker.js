@@ -9,9 +9,13 @@ const MAX_REQUEST_BYTES = 4 * 1024 * 1024;
 // rewriting a UMP response can temporarily keep several full-size copies.
 const MAX_RESPONSE_BYTES = 24 * 1024 * 1024;
 const MAX_CLIENT_KEY_CHARS = 64;
+const MAX_CAPTION_LANGUAGE_CHARS = 32;
 const UPSTREAM_TIMEOUT_MS = 25000;
 const TEXT_ENCODER = new TextEncoder();
+const TEXT_DECODER = new TextDecoder();
 const PAGEAD_MARKER = TEXT_ENCODER.encode("pagead");
+const ADVIEW_MARKER = TEXT_ENCODER.encode("adview");
+const GOOGLEADS_MARKER = TEXT_ENCODER.encode("googleads");
 const YT_ADS_WEBVIEW_MARKER = TEXT_ENCODER.encode("yt-ads-web-view-id");
 const INLINE_INJECTION_ENTRYPOINT_MARKER = TEXT_ENCODER.encode("inline_injection_entrypoint_layout.eml");
 const SHOPPING_TIMELY_SHELF_MARKER = TEXT_ENCODER.encode("shopping_timely_shelf.eml-fe");
@@ -225,6 +229,78 @@ function isWatchNextChipRow(bytes) {
   }
 }
 
+function isMoreVideosItemContainer(bytes) {
+  try {
+    const filterShelf = firstLengthDelimitedValue(bytes, 1);
+    const content = filterShelf && firstLengthDelimitedValue(filterShelf, 188360221);
+    const chipContent = content && firstLengthDelimitedValue(content, 1);
+    const chipList = chipContent && firstLengthDelimitedValue(chipContent, 90823135);
+    if (!chipList) return false;
+
+    return parseProto(chipList).filter((field) => (
+      field.no === 1
+      && field.wire === 2
+      && parseProto(field.value).some((child) => child.no === 91394224 && child.wire === 2)
+    )).length >= 2;
+  } catch {
+    return false;
+  }
+}
+
+function containsMoreVideosAdSignal(bytes) {
+  return containsBytes(bytes, PAGEAD_MARKER)
+    && (containsBytes(bytes, ADVIEW_MARKER) || containsBytes(bytes, GOOGLEADS_MARKER));
+}
+
+function stripMoreVideosItemContainer(bytes) {
+  if (!isMoreVideosItemContainer(bytes)) return { bytes, removed: 0 };
+
+  const output = [];
+  let removed = 0;
+  for (const field of parseProto(bytes)) {
+    if (field.no === 2 && field.wire === 2 && containsMoreVideosAdSignal(field.value)) {
+      removed++;
+      continue;
+    }
+    output.push(field.raw);
+  }
+  return { bytes: removed > 0 ? concatBytes(...output) : bytes, removed };
+}
+
+function stripMoreVideosAds(bytes, depth = 0) {
+  if (!containsBytes(bytes, PAGEAD_MARKER) || depth > 16) return { bytes, removed: 0 };
+
+  let fields;
+  try {
+    fields = parseProto(bytes);
+  } catch {
+    return { bytes, removed: 0 };
+  }
+
+  const output = [];
+  let removed = 0;
+  let changed = false;
+  for (const field of fields) {
+    if (field.wire !== 2 || !containsBytes(field.value, PAGEAD_MARKER)) {
+      output.push(field.raw);
+      continue;
+    }
+
+    const result = field.no === 29209665
+      ? stripMoreVideosItemContainer(field.value)
+      : stripMoreVideosAds(field.value, depth + 1);
+    removed += result.removed;
+    if (result.removed > 0) {
+      changed = true;
+      output.push(encodeLengthDelimitedField(field.no, result.bytes));
+    } else {
+      output.push(field.raw);
+    }
+  }
+
+  return { bytes: changed ? concatBytes(...output) : bytes, removed };
+}
+
 function stripItemSectionRichAds(bytes) {
   let fields;
   try {
@@ -425,10 +501,11 @@ function stripNextResponseAds(nextBytes) {
     // covers continuation actions and newly introduced wrapper fields while
     // the unique ItemSectionRenderer extension keeps deletion tightly scoped.
     const adResult = stripCommentAreaAdRenderers(nextBytes);
-    const shoppingResult = stripTimelyShoppingShelf(adResult.bytes);
+    const moreVideosResult = stripMoreVideosAds(adResult.bytes);
+    const shoppingResult = stripTimelyShoppingShelf(moreVideosResult.bytes);
     return {
       bytes: shoppingResult.bytes,
-      removed: adResult.removed + shoppingResult.removed,
+      removed: adResult.removed + moreVideosResult.removed + shoppingResult.removed,
     };
   } catch (error) {
     console.error("YouTube NextResponse ad content was left unchanged:", error);
@@ -467,7 +544,107 @@ function enhancePlayabilityStatus(playabilityBytes) {
   ]));
 }
 
-function stripPlayerAds(playerBytes) {
+function normalizeCaptionLanguage(value) {
+  const language = String(value || "").trim();
+  if (!language || language.toLowerCase() === "off" || language.length > MAX_CAPTION_LANGUAGE_CHARS) return "off";
+  if (!/^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/i.test(language)) return "off";
+  return {
+    "zh-hant": "zh-Hant",
+    "zh-hans": "zh-Hans",
+    "zh-tw": "zh-TW",
+    "zh-cn": "zh-CN",
+  }[language.toLowerCase()] || language;
+}
+
+function encodeStringField(no, value) {
+  return encodeLengthDelimitedField(no, TEXT_ENCODER.encode(value));
+}
+
+function captionTrackLanguage(trackBytes) {
+  const language = parseProto(trackBytes).find((field) => field.no === 4 && field.wire === 2)?.value;
+  return language ? TEXT_DECODER.decode(language) : "";
+}
+
+function captionTrackBaseUrl(trackBytes) {
+  const baseUrl = parseProto(trackBytes).find((field) => field.no === 1 && field.wire === 2)?.value;
+  return baseUrl ? TEXT_DECODER.decode(baseUrl) : "";
+}
+
+function buildEnhanceCaptionTrack(baseUrl, language) {
+  const separator = baseUrl.includes("?") ? "&" : "?";
+  const label = `Enhance (${language})`;
+  const run = encodeStringField(1, label);
+  const text = encodeLengthDelimitedField(1, run);
+  return concatBytes(
+    encodeStringField(1, `${baseUrl}${separator}tlang=${encodeURIComponent(language)}`),
+    encodeLengthDelimitedField(2, text),
+    encodeStringField(3, `.${language}`),
+    encodeStringField(4, language),
+  );
+}
+
+function addCaptionTrackIndex(audioTrackBytes, captionTrackIndex) {
+  const output = [];
+  for (const field of parseProto(audioTrackBytes)) {
+    // Clear the previous defaults so YouTube keeps caption selection manual.
+    if ([3, 4, 6, 7, 11].includes(field.no)) continue;
+    output.push(field.raw);
+  }
+  output.push(encodeLengthDelimitedField(2, encodeProtoVarint(captionTrackIndex)));
+  output.push(encodeVarintField(11, 2));
+  return concatBytes(...output);
+}
+
+function addEnhanceTrackToRenderer(rendererBytes, captionLanguage) {
+  const language = normalizeCaptionLanguage(captionLanguage);
+  if (language === "off") return { bytes: rendererBytes, added: false };
+
+  const fields = parseProto(rendererBytes);
+  const tracks = fields.filter((field) => field.no === 1 && field.wire === 2);
+  if (tracks.length === 0) return { bytes: rendererBytes, added: false };
+
+  const target = language.toLowerCase();
+  if (tracks.some((track) => captionTrackLanguage(track.value).toLowerCase() === target)) {
+    return { bytes: rendererBytes, added: false };
+  }
+
+  let sourceIndex = 0;
+  for (let index = 0; index < tracks.length; index++) {
+    if (captionTrackLanguage(tracks[index].value).toLowerCase() === "en") {
+      sourceIndex = index;
+      break;
+    }
+  }
+  const baseUrl = captionTrackBaseUrl(tracks[sourceIndex].value);
+  if (!baseUrl) return { bytes: rendererBytes, added: false };
+
+  const newTrackIndex = tracks.length;
+  const output = [];
+  for (const field of fields) {
+    if (field.no === 2 && field.wire === 2) {
+      output.push(encodeLengthDelimitedField(2, addCaptionTrackIndex(field.value, newTrackIndex)));
+    } else if (field.no !== 6) {
+      output.push(field.raw);
+    }
+  }
+  output.push(encodeLengthDelimitedField(1, buildEnhanceCaptionTrack(baseUrl, language)));
+  return { bytes: concatBytes(...output), added: true };
+}
+
+function addEnhanceCaptionTrack(captionsBytes, captionLanguage) {
+  const language = normalizeCaptionLanguage(captionLanguage);
+  if (language === "off") return { bytes: captionsBytes, added: false };
+
+  let added = false;
+  const bytes = rewriteLengthDelimitedField(captionsBytes, 51621377, (rendererBytes) => {
+    const result = addEnhanceTrackToRenderer(rendererBytes, language);
+    added ||= result.added;
+    return result.bytes;
+  });
+  return { bytes, added };
+}
+
+function stripPlayerAds(playerBytes, captionLanguage = "off") {
   const fields = parseProto(playerBytes);
   const output = [];
   let removed = 0;
@@ -504,6 +681,19 @@ function stripPlayerAds(playerBytes) {
       }
     }
 
+    // PlayerResponse.captions: mirror youtube.response.js when the player is
+    // delivered only through encrypted initplayback and no /player rewrite runs.
+    if (field.no === 10 && field.wire === 2) {
+      const captions = addEnhanceCaptionTrack(field.value, captionLanguage);
+      if (captions.added) {
+        enhanced = true;
+        output.push(encodeLengthDelimitedField(10, captions.bytes));
+      } else {
+        output.push(field.raw);
+      }
+      continue;
+    }
+
     output.push(field.raw);
   }
 
@@ -514,7 +704,7 @@ function stripPlayerAds(playerBytes) {
   };
 }
 
-function stripOnesieResponseAds(clearBytes) {
+function stripOnesieResponseAds(clearBytes, captionLanguage = "off") {
   const fields = parseProto(clearBytes);
   const output = [];
   let removed = 0;
@@ -535,7 +725,7 @@ function stripOnesieResponseAds(clearBytes) {
           // Content.player is field 2. Field 3 is Content.next and must never be
           // parsed as PlayerResponse because it contains watch metadata and comments.
           if (bodyField.no === 2 && bodyField.wire === 2) {
-            const playerResult = stripPlayerAds(bodyField.value);
+            const playerResult = stripPlayerAds(bodyField.value, captionLanguage);
             bodyRemoved += playerResult.removed;
             bodyEnhanced += Number(playerResult.enhanced);
             bodyOutput.push(
@@ -666,7 +856,7 @@ async function importCryptoKeys(clientKey) {
   };
 }
 
-async function processEncryptedResponsePart(partBytes, keys) {
+async function processEncryptedResponsePart(partBytes, keys, captionLanguage = "off") {
   const fields = parseProto(partBytes);
   const ciphertext = firstProtoField(fields, 1, 2)?.value;
   const signature = firstProtoField(fields, 2, 2)?.value;
@@ -685,7 +875,7 @@ async function processEncryptedResponsePart(partBytes, keys) {
     ciphertext,
   ));
   const clearBytes = compression === 1 ? await transformCompression(decrypted, "gzip", "decompress") : decrypted;
-  const stripped = stripOnesieResponseAds(clearBytes);
+  const stripped = stripOnesieResponseAds(clearBytes, captionLanguage);
   if (stripped.removed === 0 && stripped.enhanced === 0) {
     return { bytes: partBytes, removed: 0, enhanced: 0, changed: false };
   }
@@ -715,7 +905,7 @@ async function processEncryptedResponsePart(partBytes, keys) {
   };
 }
 
-async function processUmpResponse(bytes, clientKey) {
+async function processUmpResponse(bytes, clientKey, captionLanguage = "off") {
   const parts = parseUmp(bytes);
   const keys = await importCryptoKeys(clientKey);
   let nextDataIsEncryptedResponse = false;
@@ -733,7 +923,7 @@ async function processUmpResponse(bytes, clientKey) {
     nextDataIsEncryptedResponse = false;
 
     try {
-      const result = await processEncryptedResponsePart(part.data, keys);
+      const result = await processEncryptedResponsePart(part.data, keys, captionLanguage);
       part.data = result.bytes;
       removed += result.removed;
       enhanced += result.enhanced;
@@ -826,6 +1016,7 @@ async function handleRequest(request) {
   const workerUrl = new URL(request.url);
   const targetValue = workerUrl.searchParams.get("target");
   const clientKeyValue = workerUrl.searchParams.get("ck");
+  const captionLanguage = normalizeCaptionLanguage(workerUrl.searchParams.get("captionLang"));
   if (!targetValue || !clientKeyValue) return new Response("Missing target or ck", { status: 400 });
   if (clientKeyValue.length > MAX_CLIENT_KEY_CHARS) return new Response("Invalid ck", { status: 400 });
 
@@ -904,7 +1095,7 @@ async function handleRequest(request) {
   if (responseBytes.length > MAX_RESPONSE_BYTES) return responseWithBytes(upstream, responseBytes, "bypass-too-large");
 
   try {
-    const result = await processUmpResponse(responseBytes, clientKey);
+    const result = await processUmpResponse(responseBytes, clientKey, captionLanguage);
     return responseWithBytes(upstream, result.bytes, `removed-${result.removed}`);
   } catch (error) {
     console.error("YouTube UMP response was left unchanged:", error);
@@ -921,6 +1112,8 @@ export const __test = {
   stripOnesieResponseAds,
   stripNextResponseAds,
   stripPlayerAds,
+  addEnhanceCaptionTrack,
+  normalizeCaptionLanguage,
 };
 
 export default {

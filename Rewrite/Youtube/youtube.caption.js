@@ -33,14 +33,14 @@ function cacheKey(query, source, target) {
 
 function readCachedParts(key, length) {
   try {
-    const cached = JSON.parse($persistentStore.read(key) || "null");
+    const cached = JSON.parse($prefs.valueForKey(key) || "null");
     const fresh = cached && Array.isArray(cached.parts)
       && cached.parts.length === length
       && Date.now() - Number(cached.savedAt || 0) < CACHE_TTL_MS;
     if (fresh) return cached.parts;
-    if (cached) $persistentStore.write("", key);
+    if (cached) $prefs.setValueForKey("", key);
   } catch (_) {
-    try { $persistentStore.write("", key); } catch (_) {}
+    try { $prefs.setValueForKey("", key); } catch (_) {}
   }
   return null;
 }
@@ -48,16 +48,16 @@ function readCachedParts(key, length) {
 function writeCachedParts(key, parts) {
   try {
     const savedAt = Date.now();
-    $persistentStore.write(JSON.stringify({savedAt, parts}), key);
-    const storedIndex = JSON.parse($persistentStore.read(CACHE_INDEX_KEY) || "[]");
+    $prefs.setValueForKey(JSON.stringify({savedAt, parts}), key);
+    const storedIndex = JSON.parse($prefs.valueForKey(CACHE_INDEX_KEY) || "[]");
     const index = (Array.isArray(storedIndex) ? storedIndex : [])
       .filter((item) => item?.key && item.key !== key && savedAt - Number(item.savedAt || 0) < CACHE_TTL_MS);
     index.push({key, savedAt});
     while (index.length > CACHE_LIMIT) {
       const expired = index.shift();
-      if (expired?.key) $persistentStore.write("", expired.key);
+      if (expired?.key) $prefs.setValueForKey("", expired.key);
     }
-    $persistentStore.write(JSON.stringify(index), CACHE_INDEX_KEY);
+    $prefs.setValueForKey(JSON.stringify(index), CACHE_INDEX_KEY);
   } catch (_) {}
 }
 
@@ -106,19 +106,11 @@ function buildBatches(captions) {
 
 function requestTranslation(query, source, target, timeout) {
   const url = `${TRANSLATE_ENDPOINT}?client=gtx&sl=${encodeURIComponent(source)}&tl=${encodeURIComponent(target)}&dt=t&q=${encodeURIComponent(query)}`;
-  return new Promise((resolve, reject) => {
-    $httpClient.get({url, timeout, headers: {Accept: "application/json"}}, (error, response, body) => {
-      if (error) return reject(error);
-      try {
-        const status = response.status || response.statusCode;
-        if (status !== 200) throw new Error(`Google Translate status ${status}`);
-        const result = JSON.parse(body);
-        if (!Array.isArray(result?.[0])) throw new Error("Invalid Google Translate response");
-        resolve(result[0].map((part) => part?.[0] || "").join(""));
-      } catch (parseError) {
-        reject(parseError);
-      }
-    });
+  return $task.fetch({url, method: "GET", timeout, headers: {Accept: "application/json"}}).then((response) => {
+    if (response.statusCode !== 200) throw new Error(`Google Translate status ${response.statusCode}`);
+    const result = JSON.parse(response.body);
+    if (!Array.isArray(result?.[0])) throw new Error("Invalid Google Translate response");
+    return result[0].map((part) => part?.[0] || "").join("");
   });
 }
 
@@ -219,7 +211,7 @@ async function translateCaptionResponse() {
 }
 
 if (typeof $response === "undefined") {
-  $done({url: rewriteCaptionRequest($request.url)});
+  $done({url: rewriteCaptionRequest($request.url), headers: $request.headers});
 } else {
   translateCaptionResponse().catch((error) => {
     console.log(`Google caption translation failed: ${error}`);
