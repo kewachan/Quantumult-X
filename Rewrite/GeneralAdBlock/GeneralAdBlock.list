@@ -1,10 +1,19 @@
-hostname = comicapi.manhuashe.com, meta.wikimedia.org, www.google.com, zh.wikipedia.org
+hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wikimedia.org, www.google.com, zh.wikipedia.org
 
-# Google Search sponsored results and app promotion
+# Bahamut
+^https:\/\/api\.gamer\.com\.tw\/(?:mobile_app\/anime\/v\d\/(?:token|m3u8)|anime\/v\d\/video_src)\.php(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/bahamut-adblock.js
+
+# Google
 ^https?:\/\/(www\.)?google\.[^\/]+\/search(?:\/.*)?(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/google-adblock.js
 
-# Manhuashe welfare tab bar
+# Manhuashe
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/.+?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/manhuashe-adblock.js
 
-# Wikipedia variant dialog and CentralNotice banners
+# Wikipedia
 ^https?:\/\/(?:zh\.wikipedia\.org\/w\/load\.php\?.*modules=ext\.gadget\.VariantAllyDialog(?:&.*)?|zh\.wikipedia\.org\/w\/api\.php\?.*page=Template(?:%3A|:)AdvancedSiteNotices(?:%2F|\/)ajax(?:&.*)?|meta\.wikimedia\.org\/w\/index\.php\?.*title=Special(?:%3A|:)BannerLoader(?:&.*)?)$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/wikipedia-adblock.js
+
+# Yahoo Finance Request
+^https:\/\/config\.mobile\.yahoo\.com\/V3\/getconfig(?:\?.*)?$ url script-request-header https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/yahoo-finance-adblock.js
+
+# Yahoo Finance
+^https:\/\/config\.mobile\.yahoo\.com\/V3\/getconfig(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/yahoo-finance-adblock.js

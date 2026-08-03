@@ -1,27 +1,27 @@
 ############ International ############
 
 #Recaptcha
-host-suffix, recaptcha.net, direct
+host-suffix, recaptcha.net
 
 #Pokemon TCGP
-host-keyword, player-api-prod, direct
+host-keyword, player-api-prod
 
 #Lrclib
-host-keyword, lrclib, direct
+host-keyword, lrclib
 
 ############ China ############
 
 #HengQin car registration
-host-suffix, hengqin.gov.cn, direct
+host-suffix, hengqin.gov.cn
 
 #Macao2North car registration
-host-suffix, dcloud.net.cn, direct
-host-suffix, singlewindow.gd.cn, direct
+host-suffix, dcloud.net.cn
+host-suffix, singlewindow.gd.cn
 
 ############ Macau ############
 
 #SSH
-host, freco.synology.me, direct
-host, kewachan.ddns.net, direct
-host, kenichi-tyo1.duckdns.org, direct
-host, kenichi-tyo2.duckdns.org, direct
+host, freco.synology.me
+host, kewachan.ddns.net
+host, kenichi-tyo1.duckdns.org
+host, kenichi-tyo2.duckdns.org

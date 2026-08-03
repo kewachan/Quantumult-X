@@ -1,80 +1,83 @@
-hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.net, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, *.aomiapp.com, youtubei.googleapis.com, *.googlevideo.com, *.xiaohongshu.com, *.manhuaren.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.weixin.qq.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.ampproject.net, *.qq.com, limbopro.com, *.wikipedia.org
+hostname = *.maasplus.com, macaumovie.com, statistic.live.126.net, *.aomiapp.com, wikipedia.org, *.wikipedia.org, google.com, *.google.com, *.ctm.net, *.macaumovie.com, *.namkwong.com.mo, *.mo.gov.mo, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, grpc.biliapi.net, *.xiaohongshu.com, *.rnote.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.shoalter.com, *.fanpiece.com, unwire.hk, *.idownloadblog.com, *.mobile01.com, *.yimg.com, *.alicdn.com, *.i18n-pglstatp.com
 
 ##### Macau #####
-
 #Macau Taxi
 (https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=1) url 302 $1type=0
 (https:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?bannerPosition=0&+)(type=3) url 302 $1type=0
-^https?:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?adPage=travel url reject-200
+^https?:\/\/plus.maasplus.com\/prod-api\/app\/advert\/list\?adPage=travel url reject
 
 #CTMbuddy
 ^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/\w\/advertise\/by\/adv url reject
+^https?:\/\/www\.ctm\.net\/crm_api\/crm-cms-server\/g\/advertise\/by\/buddyConf url reject
 ^https?:\/\/www.ctm.net\/crm_api\/crm-cms-server\/\w\/advertise\/by\/openingAdv url reject
-^https?:\/\/www.ctm.net\/crm_api\/crm-portal-server\/\w\/by\/loyalty\/member\/ads\? url reject-200
+^https?:\/\/www\.ctm\.net\/crm_api\/crm-cluster-server\/p\/by\/v2\/advertise\/bdayBanner url reject
+^https?:\/\/www.ctm.net\/crm_api\/crm-portal-server\/\w\/by\/loyalty\/member\/ads\? url reject
 
 #Macau Movie
 ^https?:\/\/macaumovie.com\/ad-media url reject
-^https?:\/\/macaumovie.com\/api\/v1\/ad url reject-200
+^https?:\/\/macaumovie.com\/api\/v1\/ad url reject
 
 #Namkwong
-^https?:\/\/app.namkwong.com.mo\/gasstation_app\/aBanner url reject-200
+^https?:\/\/app.namkwong.com.mo\/gasstation_app\/aBanner url reject
 
-#MacaoOneAccount 
-^https?:\/\/mas\-mpaas.mo.gov.mo\/loggw url reject-200
+#MacaoOneAccount
+^https?:\/\/mas\-mpaas.mo.gov.mo\/loggw url reject
 
 #Tikbee
 ^https?:\/\/api.tikbee.com\/v2\/wm\/ad\/getByKey\? url reject
 ^https?:\/\/api.tikbee.com\/v1\/advertis\/getAdByKey\? url reject
 ^https?:\/\/api.tikbee.com\/v1\/advertis\/getByKey\? url reject
-^http?:\/\/statistic.live.126.net\/statics\/report\/common\/form url reject-200
+^http?:\/\/statistic.live.126.net\/statics\/report\/common\/form url reject
 
 #MPay
-#^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ url reject-200
-^https?:\/\/quicktracking\-api.macaupass.com url reject-200
+^https?:\/\/pay.macaupass.com\/tdrmp\/adver\/ url reject
+^https?:\/\/gateway\-mp.macaupass.com\/mpay\/tdrmp\/newGateway\/adver\/ url reject
+^https?:\/\/quicktracking\-api.macaupass.com url reject
+^https?:\/\/gateway\.macaupass\.com\/mcoin\-mall\/api\/v2\/business\/indexpostercache url reject
 
 #Mfood
-^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement url reject-200
-^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/basic\/banner url reject-200
-^https?:\/\/release.userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement url reject-200
-^https?:\/\/release.userside.api.o2o.mfoodapp.com\/orgs\/basic\/banner url reject-200
+^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement url reject
+^https?:\/\/userside.api.o2o.mfoodapp.com\/orgs\/basic\/banner url reject
+^https?:\/\/release.userside.api.o2o.mfoodapp.com\/orgs\/banner\/advertisement url reject
+^https?:\/\/release.userside.api.o2o.mfoodapp.com\/orgs\/basic\/banner url reject
 
 #Aomi
-^https?:\/\/interface.aomiapp.com\/aomi-ads\/ad\/ url reject-200
+^https?:\/\/interface.aomiapp.com\/aomi-ads\/ad\/ url reject
 
 ##### Others #####
 
+#BiliBili
+^https:\/\/grpc\.biliapi\.net\/bilibili\.app\.(view|viewunite)\.v1\.View\/PlayPause$ url reject
+
 #xiaohongshu
-^https?:\/\/.+\.xiaohongshu\.com\/.+(collect|metrics|report|Report) url reject-200
+^https?:\/\/.+\.xiaohongshu\.com\/.+(metrics|report|Report) url reject
+^https?:\/\/edith\.rnote\.com\/api\/sns\/v1\/note\/metrics_report url reject
+^https?:\/\/edith\.rnote\.com\/api\/usergrowth\/behavior\/report url reject
+^https?:\/\/www\.rnote\.com\/api\/sns\/v1\/ads\/apple\/record url reject
+^https?:\/\/www\.rnote\.com\/api\/sns\/v1\/tag\/ads_engage url reject
 
 #Manhuashe
-^https?:\/\/comicapi\.manhuashe\.com\/v\d\/ads url reject-200
-^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/topicbytype url reject-200
-^https?:\/\/comicapi\.manhuashe\.com\/v\d\/comic\/chapterendrecommend url reject-200
-^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/homenav url reject-200
-^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/startupactivity url reject-200
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/ads url reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/homenav url reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/topicbytype url reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/comic\/chapterendrecommend url reject
+^https?:\/\/comicapi\.manhuashe\.com\/v\d\/public\/startupactivity url reject
 
 #Lihkg
-^https?:\/\/adv\.lihkg\.com\/www\/delivery url reject-200
-^https?:\/\/pb\.lihkg\.com\/taboola url reject-200
-^https?:\/\/pb\.lihkg\.com\/smj url reject-200
+^https?:\/\/adv\.lihkg\.com\/www\/delivery url reject
+^https?:\/\/pb\.lihkg\.com\/taboola url reject
+^https?:\/\/pb\.lihkg\.com\/smj url reject
 
 #amap
-^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? url reject-200
-^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\? url reject-dict
+^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? url reject
+^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\? url reject
 ^https?:\/\/m5\.amap\.com\/ws\/valueadded\/ url reject
 ^https?:\/\/optimus-ads\.amap\.com\/uploadimg\/ url reject
 
-#Wechat
-^https?:\/\/.+extshort\.weixin\.qq\.com\/cgi-bin\/mmoc-bin\/ad\/ url reject-200
-^https?:\/\/.+\.weixin\.qq\.com\/.+report\? url reject-200
-^https?:\/\/mp\.weixin\.qq\.com\/mp\/.+relatedarticle\? url reject-200
-^https?:\/\/mp\.weixin\.qq\.com\/mp\/.+ad\? url reject-200
-^https?:\/\/mp\.weixin\.qq\.com\/mp\/.+monitor\? url reject-200
-^https?:\/\/.+\.weixin\.qq\.com\/mp\/cps_product_info url reject-200
-^(http|https):\/\/dns.weixin.qq.com\/cgi-bin\/micromsg-bin\/newgetdns url reject-200
-
 #Pintrest
-^https?:\/\/api.pinterest.com\/v3\/users\/third_party_tracking_settings\/ url reject-200
+^https?:\/\/api.pinterest.com\/v3\/users\/third_party_tracking_settings\/ url reject
+^https?:\/\/api\.pinterest\.com\/log\/ url reject
+^https?:\/\/api\.pinterest\.com\/v3\/callback\/event\/ url reject
 
 #4Gamers
 ^https?:\/\/img.4gamers.com.tw\/ads-media url reject
@@ -82,15 +85,12 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 ^https:\/\/www.4gamers.com.tw\/site\/iframe-aols\/HEADER_BANNER_MOBILE\?excludeGoogleAds=false&ignoreOverwriteSlot=true url reject
 
 #AMP tracker
-^https?:\/\/cdn.ampproject.org\/rtv\/\d*\/v\d\/analytics-vendors url reject-200
-^https?:\/\/3p.ampproject.net\/\d*\/vendor url reject-200
-^https?:\/\/d-\d*\.ampproject.net/\d* url reject-200
+^https?:\/\/cdn.ampproject.org\/rtv\/\d*\/v\d\/analytics-vendors url reject
+^https?:\/\/3p.ampproject.net\/\d*\/vendor url reject
+^https?:\/\/d-\d*\.ampproject.net/\d* url reject
 
-#QQ Browser
-^https?:\/\/kde.qq.com\/getAds url reject-200
-
-#limbopro
-^https?:\/\/limbopro.com\/Adguard\/Adblock4limbo.function.js url reject-200
+#HKTV mall
+^https?:\/\/ts-analysis.shoalter.com\/topics\/hktvmall_ios_tracker_event url reject
 
 #Wikipedia
 (https?:\/\/zh.m.wikipedia.org\/)(wiki)(\/.+) url 302 $1zh-hk$3
@@ -101,3 +101,30 @@ hostname = *.maasplus.com, macaumovie.com, app.namkwong.com.mo, *.gov.mo, *.ctm.
 (https?:\/\/zh.wikipedia.org\/)(zh-cn)(\/.+) url 302 $1zh-hk$3
 (https?:\/\/zh.wikipedia.org\/)(zh-hans)(\/.+) url 302 $1zh-hk$3
 (https?:\/\/zh.wikipedia.org\/)(zh)(\/.+) url 302 $1zh-hk$3
+
+#Google
+(https?:\/\/www\.google\.com/search\?q=.+)(&client=.+) url 302 $1&gl=hk&safe=off
+^https?:\/\/www\.google\.com\/ads\/on-device\/conversions url reject
+^https?:\/\/play\.google\.com\/newsstand\/api\/v3\/people\/me\/analytics url reject
+^https?:\/\/cse\.google\.com\/adsense\/search\/async-ads\.js url reject
+
+#Fanpiece
+^https?:\/\/gank\.fanpiece\.com\/ad\.php url reject
+
+#Unwire
+^https?:\/\/unwire\.hk\/ads-beacon\.js url reject
+
+#iDownloadBlog
+^https?:\/\/www\.idownloadblog\.com\/ads-beacon\.js url reject
+
+#Mobile01
+^https?:\/\/attach2\.mobile01\.com\/js\/ad\/(?:adClickTracker|prebid)\.js url reject
+
+#Yahoo
+^https?:\/\/s\.yimg\.com\/aaq\/prebid\/prebid-current\.js url reject
+
+#Alibaba
+^https?:\/\/d\.alicdn\.com\/alilog\/mlog\/aplus\/ url reject
+
+#ByteDance
+^https?:\/\/sf19-static\.i18n-pglstatp\.com\/obj\/ad-pattern-sg\/3p_monitor url reject

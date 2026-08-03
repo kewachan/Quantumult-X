@@ -1,5 +1,5 @@
 /**
- * Google AdBlock for Surge
+ * Google AdBlock for Quantumult X.
  *
  * Directly hides ad containers in Google Search HTML responses.
  */
