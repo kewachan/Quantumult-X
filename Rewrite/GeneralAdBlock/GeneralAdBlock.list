@@ -10,10 +10,10 @@ hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wiki
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/.+?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/manhuashe-adblock.js
 
 # mFood Request
-^https:\/\/userside-api\.mfoodapp\.com\/(?:orgs\/basic\/banner\/_list_spread-compress|market\/user_side\/pop\/_comprehensive_pop_list)(?:\?.*)?$ url script-echo-response https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/mfood-adblock.js
+^https:\/\/userside-api\.mfoodapp\.com\/(?:orgs\/basic\/banner\/(?:_list_spread-compress|_special_list|_list_suspend)|market\/user_side\/pop\/(?:_comprehensive_pop_list|getGroupPopList))(?:\?.*)?$ url script-echo-response https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/mfood-adblock.js
 
 # mFood
-^https:\/\/userside-api\.mfoodapp\.com\/(?:orgs\/basic\/banner\/_list_spread-compress|market\/user_side\/pop\/_comprehensive_pop_list)(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/mfood-adblock.js
+^https:\/\/userside-api\.mfoodapp\.com\/(?:orgs\/basic\/banner\/(?:_list_spread-compress|_special_list|_list_suspend)|market\/user_side\/pop\/(?:_comprehensive_pop_list|getGroupPopList))(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/mfood-adblock.js
 
 # Wikipedia
 ^https?:\/\/(?:zh\.wikipedia\.org\/w\/load\.php\?.*modules=ext\.gadget\.VariantAllyDialog(?:&.*)?|zh\.wikipedia\.org\/w\/api\.php\?.*page=Template(?:%3A|:)AdvancedSiteNotices(?:%2F|\/)ajax(?:&.*)?|meta\.wikimedia\.org\/w\/index\.php\?.*title=Special(?:%3A|:)BannerLoader(?:&.*)?)$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/wikipedia-adblock.js
