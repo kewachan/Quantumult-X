@@ -1,4 +1,4 @@
-hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wikimedia.org, www.google.com, zh.wikipedia.org
+hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wikimedia.org, userside-api.mfoodapp.com, www.google.com, zh.wikipedia.org
 
 # Bahamut
 ^https:\/\/api\.gamer\.com\.tw\/(?:mobile_app\/anime\/v\d\/(?:token|m3u8)|anime\/v\d\/video_src)\.php(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/bahamut-adblock.js
@@ -8,6 +8,12 @@ hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wiki
 
 # Manhuashe
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/.+?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/manhuashe-adblock.js
+
+# mFood Request
+^https:\/\/userside-api\.mfoodapp\.com\/(?:orgs\/basic\/banner\/_list_spread-compress|market\/user_side\/pop\/_comprehensive_pop_list)(?:\?.*)?$ url script-echo-response https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/mfood-adblock.js
+
+# mFood
+^https:\/\/userside-api\.mfoodapp\.com\/(?:orgs\/basic\/banner\/_list_spread-compress|market\/user_side\/pop\/_comprehensive_pop_list)(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/mfood-adblock.js
 
 # Wikipedia
 ^https?:\/\/(?:zh\.wikipedia\.org\/w\/load\.php\?.*modules=ext\.gadget\.VariantAllyDialog(?:&.*)?|zh\.wikipedia\.org\/w\/api\.php\?.*page=Template(?:%3A|:)AdvancedSiteNotices(?:%2F|\/)ajax(?:&.*)?|meta\.wikimedia\.org\/w\/index\.php\?.*title=Special(?:%3A|:)BannerLoader(?:&.*)?)$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/wikipedia-adblock.js

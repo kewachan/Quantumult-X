@@ -9,6 +9,9 @@ host, quicktracking-api.macaupass.com, reject
 host, moasocket.ctm.net, reject
 host, tracking.ctm.net, reject
 
+# mFood
+host, shence-db.mfoodapp.com, reject
+
 ##### Hong Kong #####
 
 # RTHK
