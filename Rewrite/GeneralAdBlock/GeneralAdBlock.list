@@ -1,4 +1,4 @@
-hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wikimedia.org, userside-api.mfoodapp.com, www.google.com, zh.wikipedia.org
+hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wikimedia.org, service.thim.immigration.go.th, userside-api.mfoodapp.com, www.google.com, zh.wikipedia.org
 
 # Bahamut
 ^https:\/\/api\.gamer\.com\.tw\/(?:mobile_app\/anime\/v\d\/(?:token|m3u8)|anime\/v\d\/video_src)\.php(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/bahamut-adblock.js
@@ -8,6 +8,9 @@ hostname = *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wiki
 
 # Manhuashe
 ^https?:\/\/comicapi\.manhuashe\.com\/v\d\/.+?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/manhuashe-adblock.js
+
+# THIM
+^https:\/\/service\.thim\.immigration\.go\.th\/api\/v1\/explore\/coupons\/exclusive-banners(?:\?[^#]*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/thim-adblock.js
 
 # mFood Request
 ^https:\/\/userside-api\.mfoodapp\.com\/(?:orgs\/basic\/banner\/(?:_list_spread-compress|_special_list|_list_suspend)|market\/user_side\/pop\/(?:_comprehensive_pop_list|getGroupPopList))(?:\?.*)?$ url script-echo-response https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/mfood-adblock.js

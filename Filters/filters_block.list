@@ -9,9 +9,6 @@ host, quicktracking-api.macaupass.com, reject
 host, moasocket.ctm.net, reject
 host, tracking.ctm.net, reject
 
-# mFood
-host, shence-db.mfoodapp.com, reject
-
 ##### Hong Kong #####
 
 # RTHK
@@ -31,11 +28,6 @@ host, event-cep.dfiretailgroup.com, reject
 # Alibaba
 host, client-upload.cn-shanghai.log.aliyuncs.com, reject
 host, poplayer.template.alibaba.com, reject
-
-# Damai
-host, h-adashx.ut.hzshudian.com, reject
-host, log.mmstat.com, reject
-host, px.effirst.com, reject
 
 # Alipay
 host, datagw-edge.alipay.com, reject
@@ -456,7 +448,6 @@ host, prebid.a-mo.net, reject
 host, prebid.ad.smaato.net, reject
 host, r.skimresources.com, reject
 host, rt.applovin.com, reject
-host, rt.applvn.com, reject
 host, rtb.openx.net, reject
 host, s.ad.smaato.net, reject
 host, s.skimresources.com, reject
