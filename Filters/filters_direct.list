@@ -1,5 +1,9 @@
 ############ International ############
 
+# Apple Messages / Push
+host-suffix, push.apple.com, direct
+host-suffix, ess.apple.com, direct
+
 #Recaptcha
 host-suffix, recaptcha.net, direct
 
