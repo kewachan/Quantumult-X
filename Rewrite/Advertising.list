@@ -10,7 +10,7 @@ hostname = *.1rtb.net, *.58cdn.com.cn, *.5eplay.com, *.ahhhhfs.com, *.anythinkte
 
 (?i)\b\.ott\.cibntv\.net\/[\w\/-]+?\.mp4\?sid= url reject
 (?i)\b\/(outadservice|ting\/preload)\/ url reject
-(?i)\b\/ad\/ url reject
+(?i)^(?!https?://i2\.bahamut\.com\.tw/JS/ad/(?:animeVideo2?|animeLogo)\.js(?:\?|$)).*\b\/ad\/ url reject
 (?i)\b\/api\/v\d\/adRealTime url reject
 (?i)\b\/brand\/search\/v1\.json url reject
 (?i)\b\/promotion\/(display_cache|display_ad|feed_display|search_ad) url reject
