@@ -1,6 +1,6 @@
 hostname = www.bilibili.com, manga.bilibili.com, api.live.bilibili.com, api.vc.bilibili.com, app.bilibili.com, app.biliapi.net, api.bilibili.com, api.biliapi.net, grpc.biliapi.net
 
-^https:\/\/www\.bilibili\.com\/(?:\?|$|zh-(?:Hans|Hant)\/?(?:\?|$)|video\/|bangumi\/play\/) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
+^https:\/\/www\.bilibili\.com\/(?:(?:en|zh-(?:Hans|Hant))(?:\/|(?=\?|$)))?(?:\?|$|video\/|bangumi\/play\/) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
 ^https:\/\/api\.bilibili\.com\/(?:x\/web-interface\/index\/top\/feed\/rcmd|x\/web-show\/res\/locs)(?:\?|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
 
 # 移除搜尋中的預設關鍵詞
