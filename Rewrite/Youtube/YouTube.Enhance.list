@@ -1,6 +1,6 @@
 hostname = *.googlevideo.com, youtubei.googleapis.com, www.youtube.com
 
-^https:\/\/www\.youtube\.com\/(?:\?|$|watch(?:\?|$)|results(?:\?|$)|feed\/|playlist(?:\?|$)|@|youtubei\/v1\/(?:player|next|browse|search)(?:\?|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/web-enhance.js?v=20261025-3
+^https:\/\/www\.youtube\.com\/(?:\?|$|watch(?:\?|$)|results(?:\?|$)|feed\/|playlist(?:\?|$)|@|youtubei\/v1\/(?:player|next|browse|search)(?:\?|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/web-enhance.js?v=20261025-4
 
 # YouTube and YouTube Music Enhance for Quantumult X
 # Defaults: captionLang=zh-Hant, blockUpload=true, blockImmersive=true, blockShorts=false
