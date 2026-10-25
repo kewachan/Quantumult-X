@@ -7,13 +7,13 @@ hostname = *.googlevideo.com, youtubei.googleapis.com, www.youtube.com
 
 ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/navigation\/resolve_url(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.navigation.response.js
 
-^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config))(\?(.*))?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.response.js?v=20261009-2
+^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config))(\?(.*))?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.response.js?v=20261025-3
 
 ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/get_panel(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.lyrics.js?v=20261014-1
 
-^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.* url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback\?(?:[^&]*&)*ack=[^&]*(?:&|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.init.response.js?v=20261025-1
 
-^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js
+^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js?v=20261025-1
 
 ^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*(?:enhance_)?tlang=[^&]+(?:&|$) url script-request-header https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.caption.js?v=20261013-27
 

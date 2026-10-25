@@ -81,10 +81,11 @@
 return module.exports; })();
   (($request, $response, $done, $persistentStore, $prefs, $httpClient, $argument, $utils) => {
 /*
- * Bilibili AIRelateAsync ad filtering — v1.0.1
+ * Bilibili AIRelateAsync ad filtering — v1.0.2
  * The captured replies put ad modules at 1 -> 5 -> 1 (protobuf Any), with
  * type.googleapis.com/bilibili.ad.v1.SourceContentDto as their type URL.
- * Remove only those modules; preserve other fields and unmodified frames.
+ * New recommendation cards use 2 -> 1 -> 22 -> 1, with their ad Any at 6 -> 2.
+ * Remove only confirmed ad modules/cards; preserve other fields and frames.
  */
 (function () {
   'use strict';
@@ -217,7 +218,44 @@ return module.exports; })();
       }).map(item => raw(container, item));
       return changed ? message(field.number, join(kept)) : raw(bytes, field);
     });
-    return {bytes: removed ? join(output) : bytes, removed};
+    const filtered = filterRecommendationCards(removed ? join(output) : bytes);
+    return {bytes: filtered.bytes, removed: removed + filtered.removed};
+  }
+
+  function filterRecommendationCards(bytes) {
+    let removed = 0;
+    function rewrite(bytes, path) {
+      let changed = false;
+      const output = fields(bytes).map(field => {
+        if (field.wire !== 2 || field.number !== path[0]) return raw(bytes, field);
+        const value = data(bytes, field);
+        if (path.length > 1) {
+          const result = rewrite(value, path.slice(1));
+          if (result !== value) { changed = true; return message(field.number, result); }
+        } else {
+          const kept = fields(value).filter(card => {
+            if (card.number !== 1 || card.wire !== 2) return true;
+            const ad = fields(data(value, card)).some(content => content.number === 6 && content.wire === 2 &&
+              fields(data(data(value, card), content)).some(item => {
+                if (item.number !== 2 || item.wire !== 2) return false;
+                const any = data(data(data(value, card), content), item);
+                const type = fields(any).find(field => field.number === 1 && field.wire === 2);
+                const payload = fields(any).find(field => field.number === 2 && field.wire === 2);
+                const name = type && data(any, type);
+                return payload && payload.end > payload.dataStart && name?.length === AD_TYPE.length &&
+                  name.every((byte, index) => byte === AD_TYPE.charCodeAt(index));
+              }));
+            if (ad) { removed++; changed = true; return false; }
+            return true;
+          }).map(card => raw(value, card));
+          if (changed) return message(field.number, join(kept));
+        }
+        return raw(bytes, field);
+      });
+      return changed ? join(output) : bytes;
+    }
+    try { return {bytes: rewrite(bytes, [2, 1, 22]), removed}; }
+    catch (_) { return {bytes, removed: 0}; }
   }
 
   function filterFrames(bytes, encoding) {
