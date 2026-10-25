@@ -1,5 +1,7 @@
 hostname = *.googlevideo.com, youtubei.googleapis.com, www.youtube.com
 
+^https:\/\/www\.youtube\.com\/(?:\?|$|watch(?:\?|$)|results(?:\?|$)|feed\/|playlist(?:\?|$)|@|youtubei\/v1\/(?:player|next|browse|search)(?:\?|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
+
 # YouTube and YouTube Music Enhance for Quantumult X
 # Defaults: captionLang=zh-Hant, blockUpload=true, blockImmersive=true, blockShorts=false
 
@@ -15,4 +17,4 @@ hostname = *.googlevideo.com, youtubei.googleapis.com, www.youtube.com
 
 ^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*(?:enhance_)?tlang=[^&]+(?:&|$) url script-request-header https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.caption.js?v=20261013-27
 
-^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*(?:enhance_)?tlang=[^&]+(?:&|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.caption.js?v=20261013-27
+^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*(?:enhance_)?tlang=[^&]+(?:&|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.web.caption.js

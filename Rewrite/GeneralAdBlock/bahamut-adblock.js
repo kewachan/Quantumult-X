@@ -1,4 +1,8 @@
 ((qxDone, qxRequest, qxResponse, qxEnvironment) => {
+  const browserHeaders = Object.fromEntries(Object.entries(qxRequest.headers || {}).map(([key, value]) => [key.toLowerCase(), String(value)]));
+  const browserRequest = /^https:\/\/ani\.gamer\.com\.tw(?:\/|$)/i.test(browserHeaders.origin || browserHeaders.referer || "")
+    || /Macintosh/.test(browserHeaders["user-agent"] || "") && /Safari\//.test(browserHeaders["user-agent"] || "");
+  if (browserRequest && /^https:\/\/api\.gamer\.com\.tw\/anime\/v\d\/video_src\.php(?:\?|$)/.test(qxRequest.url || "")) return qxDone({});
   const bytes = value => value instanceof Uint8Array ? value : value instanceof ArrayBuffer ? new Uint8Array(value) : null;
   const store = {
     read: key => $prefs.valueForKey(key),

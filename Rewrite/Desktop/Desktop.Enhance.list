@@ -1,9 +1,0 @@
-hostname = www.youtube.com, www.bilibili.com, api.bilibili.com, ani.gamer.com.tw, api.gamer.com.tw
-
-^https:\/\/www\.youtube\.com\/(?:\?|$|watch(?:\?|$)|results(?:\?|$)|feed\/|playlist(?:\?|$)|@|youtubei\/v1\/(?:player|next|browse|search)(?:\?|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
-^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*(?:enhance_)?tlang=[^&]+(?:&|$) url script-request-header https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/youtube.web.caption.js
-^https:\/\/www\.youtube\.com\/api\/timedtext\?(?:[^&]*&)*(?:enhance_)?tlang=[^&]+(?:&|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/youtube.web.caption.js
-^https:\/\/www\.bilibili\.com\/(?:\?|$|zh-(?:Hans|Hant)\/?(?:\?|$)|video\/|bangumi\/play\/) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
-^https:\/\/api\.bilibili\.com\/(?:x\/web-interface\/(?:wbi\/)?index\/top\/feed\/rcmd|x\/web-show\/res\/locs)(?:\?|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
-^https:\/\/ani\.gamer\.com\.tw\/(?:\?|$|animeVideo\.php(?:\?|$)|animeList\.php(?:\?|$)|animeRef\.php(?:\?|$)|ajax\/token\.php(?:\?|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
-^https:\/\/api\.gamer\.com\.tw\/anime\/v\d\/video_src\.php(?:\?|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Desktop/desktop.web.js
