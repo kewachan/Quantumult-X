@@ -1,4 +1,4 @@
-hostname = *.maasplus.com, macaumovie.com, statistic.live.126.net, *.aomiapp.com, wikipedia.org, *.wikipedia.org, google.com, *.google.com, *.ctm.net, *.macaumovie.com, *.namkwong.com.mo, *.mo.gov.mo, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, grpc.biliapi.net, *.xiaohongshu.com, *.rnote.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.shoalter.com, *.fanpiece.com, unwire.hk, *.idownloadblog.com, *.mobile01.com, *.yimg.com, *.alicdn.com, *.i18n-pglstatp.com
+hostname = *.maasplus.com, macaumovie.com, statistic.live.126.net, *.aomiapp.com, wikipedia.org, *.wikipedia.org, google.com, *.google.com, *.ctm.net, *.macaumovie.com, *.namkwong.com.mo, *.mo.gov.mo, *.tikbee.com, *.macaupass.com, *.mfoodapp.com, grpc.biliapi.net, *.xiaohongshu.com, *.rnote.com, *.manhuashe.com, *.lihkg.com, *.amap.com, *.pinterest.com, *.4gamers.com.tw, *.ampproject.org, *.shoalter.com, *.fanpiece.com, unwire.hk, *.idownloadblog.com, *.mobile01.com, *.yimg.com, *.alicdn.com, *.i18n-pglstatp.com, a.line.me, gw.line.naver.jp, legy.line-apps.com, w.line.me, sch.line.me, static.line-scdn.net, web-mmap-pay.line-apps.com, scdn.line-apps.com, crs-event.line.me, cix.line-apps.com, api.whatsapp.net, dit.whatsapp.net
 
 ##### Macau #####
 #Macau Taxi
@@ -68,6 +68,33 @@ hostname = *.maasplus.com, macaumovie.com, statistic.live.126.net, *.aomiapp.com
 ^https?:\/\/pb\.lihkg\.com\/taboola url reject
 ^https?:\/\/pb\.lihkg\.com\/smj url reject
 
+#LINE
+^https:\/\/a\.line\.me(?::443)?\/er\/lads\/v\d+\/ei(?:\?|$) url reject
+^https:\/\/a\.line\.me(?::443)?\/er\/(?:lass|ladg|lads)\/v\d+\/event\/image(?:\?|$) url reject
+^https:\/\/a\.line\.me(?::443)?\/lass\/api\/v\d+\/ads(?:\?|$) url reject
+^https:\/\/a\.line\.me(?::443)?\/oa\/v\d+\/e(?:\?|$) url reject
+^https:\/\/a\.line\.me(?::443)?\/cs\/v\d+\/oa(?:\?|$) url reject
+^https:\/\/gw\.line\.naver\.jp(?::443)?\/ext\/lgfp\/lad\/v\d+(?:\?|$) url reject
+^https:\/\/gw\.line\.naver\.jp(?::443)?\/lass\/api\/v\d+\/ads(?:\?|$) url reject
+^https:\/\/gw\.line\.naver\.jp(?::443)?\/tr\/event(?:\?|$) url reject
+^https:\/\/legy\.line-apps\.com(?::443)?\/ext\/lgfp\/lad\/v\d+(?:\?|$) url reject
+^https:\/\/legy\.line-apps\.com(?::443)?\/ext\/smartch\/banner\/sch\/v\d+(?:\?|$) url reject
+^https:\/\/legy\.line-apps\.com(?::443)?\/tr\/event(?:\?|$) url reject
+^https:\/\/w\.line\.me(?::443)?\/adp\/api\/ad\/v\d+\/ url reject
+^https:\/\/sch\.line\.me(?::443)?\/api\/v\d+\/ads(?:\?|$) url reject
+^https:\/\/static\.line-scdn\.net(?::443)?\/ad-sdk\/ url reject
+^https:\/\/static\.line-scdn\.net(?::443)?\/uts\/ url reject
+^https:\/\/web-mmap-pay\.line-apps\.com(?::443)?\/tw\/liff\/campaign\/v\d+\/aggregate\/ad\/banner\/ url reject
+^https:\/\/scdn\.line-apps\.com(?::443)?\/lan\/image\/line\/bannerImageEvent\/ url reject
+^https:\/\/scdn\.line-apps\.com(?::443)?\/lan\/document\/pageEvent\/line\/ios\/ url reject
+^https:\/\/crs-event\.line\.me(?::443)?\/v\d+\/imp(?:\?|$) url reject
+^https:\/\/cix\.line-apps\.com(?::443)?\/R\d+(?:\?|$) url reject
+
+#WhatsApp
+^https:\/\/api\.whatsapp\.net\/falco\/pigeon_nest(?:\?.*)?$ url reject
+^https:\/\/api\.whatsapp\.net\/falco\/pigeon_health_metrics(?:\?.*)?$ url reject
+^https:\/\/dit\.whatsapp\.net\/deidentified_telemetry(?:\?.*)?$ url reject
+
 #amap
 ^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen? url reject
 ^https:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\? url reject
@@ -103,7 +130,8 @@ hostname = *.maasplus.com, macaumovie.com, statistic.live.126.net, *.aomiapp.com
 (https?:\/\/zh.wikipedia.org\/)(zh)(\/.+) url 302 $1zh-hk$3
 
 #Google
-(https?:\/\/www\.google\.com/search\?q=.+)(&client=.+) url 302 $1&gl=hk&safe=off
+^(https?:\/\/www\.google\.com\/search\?)(?!(?:[^&#]*&)*(?:udm|tbm)=)(q=[^&#]+(?:&[^&#]*)*?)&client=[^&#]*(&[^#]*)?(#.*)?$ url 302 $1$2$3&gl=hk&safe=off&udm=14$4
+^(https?:\/\/www\.google\.com\/search\?)(?=(?:[^&#]*&)*q=[^&#]+)(?!(?:[^&#]*&)*(?:udm|tbm)=)([^#]+)(#.*)?$ url 302 $1udm=14&$2$3
 ^https?:\/\/www\.google\.com\/ads\/on-device\/conversions url reject
 ^https?:\/\/play\.google\.com\/newsstand\/api\/v3\/people\/me\/analytics url reject
 ^https?:\/\/cse\.google\.com\/adsense\/search\/async-ads\.js url reject
