@@ -5,6 +5,7 @@
   const youtube = /^https:\/\/www\.youtube\.com\//.test(url);
   const bilibili = /^https:\/\/(?:www|api)\.bilibili\.com\//.test(url);
   const bahamut = /^https:\/\/(?:ani|api)\.gamer\.com\.tw\//.test(url);
+  const bahamutWebToken = /^https:\/\/ani\.gamer\.com\.tw\/ajax\/token\.php(?:\?|$)/.test(url);
   if (!youtube && !bilibili && !bahamut) return $done({});
   const DROP = {};
   const adArrays = new Set(["playerAds", "adPlacements", "adSlots"]);
@@ -113,6 +114,12 @@
     let body = original;
     if (/^\s*[\[{]/.test(body)) {
       const value = clean(JSON.parse(body));
+      if (bahamutWebToken && value && !value.error && typeof value.time === "number"
+        && (typeof value.animeSn === "number" || typeof value.animeSn === "string") && typeof value.src === "string"
+        && value.time !== 1) {
+        value.time = 1;
+        removed++;
+      }
       if (value !== DROP && removed + tracks) body = JSON.stringify(value);
     } else if (/<html\b|<!doctype\b/i.test(body)) {
       body = embedded(body);
