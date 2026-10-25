@@ -35,11 +35,20 @@
     const list = value.captionTracks;
     if (language === "off" || !Array.isArray(list) || !list.length) return;
     if (list.some(track => typeof track.baseUrl === "string" && /[?&]enhance_tlang=/.test(track.baseUrl))) return;
-    const source = list.find(track => typeof track.baseUrl === "string" && !/[?&]tlang=/.test(track.baseUrl));
+    const audio = Array.isArray(value.audioTracks) ? value.audioTracks : [];
+    const activeAudio = audio[value.defaultAudioTrackIndex || 0];
+    const available = index => !Array.isArray(activeAudio?.captionTrackIndices) || activeAudio.captionTrackIndices.includes(index);
+    const eligible = track => typeof track?.baseUrl === "string" && !/[?&]tlang=/.test(track.baseUrl);
+    let sourceIndex = list.findIndex((track, index) => available(index) && eligible(track) && track.kind === "asr");
+    if (sourceIndex < 0 && Number.isInteger(activeAudio?.defaultCaptionTrackIndex) && eligible(list[activeAudio.defaultCaptionTrackIndex])) sourceIndex = activeAudio.defaultCaptionTrackIndex;
+    if (sourceIndex < 0) sourceIndex = list.findIndex((track, index) => available(index) && eligible(track));
+    const source = list[sourceIndex];
     if (!source || !/^https:\/\/www\.youtube\.com\/api\/timedtext\?/.test(source.baseUrl)) return;
+    const translatedIndex = list.length;
     list.push({ ...source, baseUrl: parameter(source.baseUrl, "enhance_tlang", target),
       name: { simpleText: "Enhance (" + language + ")" }, vssId: ".enhance." + language,
       languageCode: language, isTranslatable: false });
+    for (const track of audio) if (Array.isArray(track.captionTrackIndices) && track.captionTrackIndices.includes(sourceIndex)) track.captionTrackIndices.push(translatedIndex);
     tracks++;
   }
   function clean(value) {
