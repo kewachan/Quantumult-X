@@ -1,5 +1,6 @@
 hostname = www.bilibili.com, manga.bilibili.com, api.live.bilibili.com, api.vc.bilibili.com, app.bilibili.com, app.biliapi.net, api.bilibili.com, api.biliapi.net, grpc.biliapi.net
 
+^https:\/\/grpc\.biliapi\.net(?::443)?\/bilibili\.(?:app\.(?:view|viewunite)\.v1\.View\/(?:View|ViewProgress|TFInfo|AIRelateAsync|RelatesFeed)|main\.community\.reply\.v[12]\.Reply\/(?:MainList|SubjectDescription))(?:\?.*)?$ url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Bilibili/bilibili.grpc.request.js?v=1.0.0
 ^https:\/\/www\.bilibili\.com\/(?:(?:en|zh-(?:Hans|Hant))(?:\/|(?=\?|$)))?(?:\?|$|video\/|bangumi\/play\/) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/web-enhance.js?v=20261025-2
 ^https:\/\/api\.bilibili\.com\/(?:x\/web-interface\/index\/top\/feed\/rcmd|x\/web-show\/res\/locs)(?:\?|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/web-enhance.js?v=20261025-2
 
