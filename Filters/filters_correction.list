@@ -1,0 +1,6 @@
+# Corrections for unwanted block
+
+# Bilibili HTTPDNS
+ip-cidr, 203.119.206.8/32, direct
+ip-cidr, 203.119.206.9/32, direct
+ip-cidr, 203.119.238.194/32, direct
