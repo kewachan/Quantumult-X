@@ -81,7 +81,7 @@
 return module.exports; })();
   (($request, $response, $done, $persistentStore, $prefs, $httpClient, $argument, $utils) => {
 /*
- * Bilibili AIRelateAsync ad filtering — v1.0.2
+ * Bilibili AIRelateAsync ad filtering — v1.0.3
  * The captured replies put ad modules at 1 -> 5 -> 1 (protobuf Any), with
  * type.googleapis.com/bilibili.ad.v1.SourceContentDto as their type URL.
  * New recommendation cards use 2 -> 1 -> 22 -> 1, with their ad Any at 6 -> 2.
@@ -101,8 +101,8 @@ return module.exports; })();
 
   function needsGrpcStatus(requestHeaders) {
     // Match ADBlock v0.6.24's client compatibility guard (fixHeaders.mjs).
-    // Only supply a missing status after a complete, valid reply is parsed;
-    // never replace an explicit upstream error or add it to the white client.
+    // Supply canonical completion metadata only after a valid reply is parsed;
+    // preserve upstream errors and the white client's original behavior.
     const ua = String(headerValue(requestHeaders, 'user-agent') || '');
     return ua.includes('bili-blue/') ||
       (ua.includes('bili-universal/') && String(headerValue(requestHeaders, 'x-bili-moss-engine-type')) === '1');
@@ -297,15 +297,18 @@ return module.exports; })();
     const body = $response.body;
     if (!(body instanceof Uint8Array) || body.length === 0) return $done({});
     const headers = $response.headers || {};
-    const grpcStatus = headerValue(headers, 'grpc-status');
-    if (grpcStatus !== undefined && String(grpcStatus).trim() !== '0') return $done({});
+    const statuses = Object.entries(headers).filter(([name]) => name.toLowerCase() === 'grpc-status').map(([, value]) => value);
+    const grpcStatus = statuses[0];
+    if (statuses.some(value => String(value).trim() !== '0')) return $done({});
     const result = filterFrames(body, String(headerValue(headers, 'grpc-encoding') || 'identity').trim().toLowerCase());
     if (result.removed && /^(INFO|DEBUG|ALL)$/i.test(String(options.LogLevel || ''))) {
       console.log(`Bilibili AIRelateAsync: removed ${result.removed} ad modules`);
     }
     const response = result.removed ? {body: result.bytes} : {};
-    if (grpcStatus === undefined && needsGrpcStatus($request.headers || {})) {
-      response.headers = {...headers, 'grpc-status': '0'};
+    if (needsGrpcStatus($request.headers || {}) &&
+        (grpcStatus === undefined || !Object.prototype.hasOwnProperty.call(headers, 'grpc-status') || result.removed)) {
+      response.headers = Object.fromEntries(Object.entries(headers).filter(([name]) => name.toLowerCase() !== 'grpc-status'));
+      response.headers['grpc-status'] = '0';
     }
     return $done(response);
   } catch (error) {

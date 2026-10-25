@@ -125,11 +125,12 @@
     const parts = [];
     let offset = 0;
     while (offset < bytes.length) {
+      const start = offset;
       const type = readUmpVarint(bytes, offset);
       const length = readUmpVarint(bytes, type.end);
       const end = length.end + length.value;
       if (end > bytes.length) throw new Error("Truncated UMP part");
-      parts.push({ type: type.value, data: bytes.subarray(length.end, end) });
+      parts.push({ type: type.value, data: bytes.subarray(length.end, end), raw: bytes.subarray(start, end) });
       offset = end;
     }
     return parts;
@@ -301,6 +302,16 @@
       console.log("YouTube initplayback: playback key refresh requested");
       return finish({});
     }
+    const selected = [], slots = [];
+    let encryptedHeader = -1;
+    for (let index = 0; index < parts.length; index++) {
+      const part = parts[index];
+      if (part.type === 10) encryptedHeader = firstProtoField(parseProto(part.data), 1, 0)?.value?.value === 25 ? index : -1;
+      else if (part.type === 11 && encryptedHeader >= 0) {
+        selected.push(parts[encryptedHeader], part); slots.push(index); encryptedHeader = -1;
+      }
+    }
+    const metadata = concatBytes(...selected.map(part => part.raw));
     deadline = setTimeout(() => {
       console.log("YouTube initplayback: transform timeout; original response kept");
       finish({});
@@ -308,7 +319,7 @@
     $task.fetch({
       url: WORKER + "?ck=" + encodeURIComponent(key.value) + "&captionLang=" + encodeURIComponent(options.captionLang),
       method: "POST", headers: { "Content-Type": "application/vnd.yt-ump" },
-      bodyBytes: input.buffer.slice(input.byteOffset, input.byteOffset + input.byteLength),
+      bodyBytes: metadata.buffer.slice(metadata.byteOffset, metadata.byteOffset + metadata.byteLength),
       opts: { policy: "direct" }
     }).then(response => {
       if (completed) return;
@@ -319,10 +330,15 @@
         return finish({});
       }
       const transformed = parseUmp(output);
-      if (transformed.length !== parts.length || transformed.some((part, index) => part.type !== parts[index].type ||
-          part.type !== 11 && !equalBytes(part.data, parts[index].data))) throw new Error("UMP structure changed");
+      if (transformed.length !== selected.length || transformed.some((part, index) => part.type !== selected[index].type ||
+          part.type !== 11 && !equalBytes(part.data, selected[index].data)) ||
+          !authenticatedKey(transformed, [key])) throw new Error("UMP structure changed");
       if (options.debug) console.log("YouTube initplayback: " + result);
-      finish(equalBytes(input, output) ? {} : { bodyBytes: output.buffer.slice(output.byteOffset, output.byteOffset + output.byteLength) });
+      if (equalBytes(metadata, output)) return finish({});
+      const chunks = parts.map(part => part.raw);
+      slots.forEach((index, slot) => { chunks[index] = transformed[slot * 2 + 1].raw; });
+      const rewritten = concatBytes(...chunks);
+      finish({ bodyBytes: rewritten.buffer.slice(rewritten.byteOffset, rewritten.byteOffset + rewritten.byteLength) });
     }).catch(() => {
       console.log("YouTube initplayback: transform failed; original response kept");
       finish({});
