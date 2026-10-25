@@ -9,6 +9,16 @@ host, quicktracking-api.macaupass.com, reject
 host, moasocket.ctm.net, reject
 host, tracking.ctm.net, reject
 
+# mFood
+host, adash-emas.cn-hangzhou.aliyuncs.com, reject
+host, adashbc.ut.taobao.com, reject
+host, adashxgc.ut.taobao.com, reject
+host, cnlogs.umeng.com, reject
+host, ios.bugly.qq.com, reject
+host, resolve.umeng.com, reject
+host, shence-db.mfoodapp.com, reject
+host, statistic.live.126.net, reject
+
 ##### Hong Kong #####
 
 # RTHK
@@ -28,6 +38,12 @@ host, event-cep.dfiretailgroup.com, reject
 # Alibaba
 host, client-upload.cn-shanghai.log.aliyuncs.com, reject
 host, poplayer.template.alibaba.com, reject
+
+# Damai
+host, gm.mmstat.com, reject
+host, h-adashx.ut.hzshudian.com, reject
+host, log.mmstat.com, reject
+host, px.effirst.com, reject
 
 # Alipay
 host, datagw-edge.alipay.com, reject
@@ -50,6 +66,10 @@ host-suffix, metrics5.data.hicloud.com, reject
 host, mars.jd.com, reject
 host, mllog.jd.com, reject
 host, perf.m.jd.com, reject
+
+# Tuhu
+host, analytics.tuhu.com, reject
+host, ta.tuhu.cn, reject
 
 # OnePlus
 host-suffix, analytics.oneplus.cn, reject
@@ -99,6 +119,9 @@ host-suffix, itadstatic.ithome.com.tw, reject
 # XFastest
 host-suffix, ads.xfastest.com, reject
 
+# Dcard
+host, bilanx.dcard.tw, reject
+
 # Baidu
 host-suffix, tsn.baidu.com, reject
 
@@ -113,6 +136,8 @@ host-suffix, ibytedtos.com, reject
 host-suffix, log.byteoversea.com, reject
 host-suffix, pangle.io, reject
 host-suffix, pglstatp-toutiao.com, reject
+host, api16-access-ttp.tiktokpangle.us, reject
+host, api16-access-wf-sg.pangle-b.io, reject
 
 # RedNote
 host, ads-i2.xhscdn.com, reject
@@ -134,6 +159,12 @@ host-suffix, x.research.qq.com, reject
 
 ##### International #####
 
+# LINE
+host, ad.line-scdn.net, reject
+host, ec-bot-obs.line-scdn.net, reject
+host, nelo2-col.linecorp.com, reject
+host, uts-front.line-apps.com, reject
+
 # Samsung
 host-suffix, ad.samsungadhub.com, reject
 host-suffix, analytics-api.samsunghealthcn.com, reject
@@ -146,6 +177,10 @@ host-suffix, samsung-com.112.2o7.net, reject
 host-suffix, samsungadhub.com, reject
 host-suffix, samsungads.com, reject
 host-suffix, smetrics.samsung.com, reject
+
+# Yonhap News Agency
+host, cdp.yna.co.kr, reject
+host, eas.yna.co.kr, reject
 
 # Facebook
 host-suffix, ads.facebook.com, reject
@@ -183,6 +218,7 @@ host-suffix, adsgram.ai, reject
 host-suffix, swiftgram.app, reject
 
 # X (Twitter)
+host, syndication.x.com, reject
 host-suffix, ads-api.twitter.com, reject
 host-suffix, ads-twitter.com, reject
 host-suffix, advertising.twitter.com, reject
@@ -229,7 +265,6 @@ host, clouder-analytics.jeanrobert-nino-layton.workers.dev, reject
 
 # Google
 host, firebaselogging-pa.googleapis.com, reject
-host, imasdk.googleapis.com, reject
 host, ogads-pa.clients6.google.com, reject
 host-suffix, ad.doubleclick.net, reject
 host-suffix, ads.google.com, reject
@@ -342,6 +377,8 @@ host-suffix, startup.mobile.yandex.net, reject
 host-suffix, yandexadexchange.net, reject
 
 # Analytics and Diagnostics
+host, analytics.adjust.com, reject
+host, analytics.adjust.io, reject
 host, ali-stats.jpush.cn, reject
 host, analytics.shareaholic.com, reject
 host, analytics.theradioapp.com, reject
@@ -349,7 +386,10 @@ host, api3.branch.io, reject
 host, app-analytics-services.com, reject
 host, assets.adobedtm.com, reject
 host, astat.nikkei.com, reject
+host, b.karte.io, reject
+host, census-app-x.scorecardresearch.com, reject
 host, cdn-settings.segment.com, reject
+host, cnam4c.cdn-settings.appsflyersdk.com, reject
 host, cnlogs.umengcloud.com, reject
 host, d1dns4zpgsd7rz.cloudfront.net, reject
 host, ep1.adtrafficquality.google, reject
@@ -357,8 +397,11 @@ host, ep2.adtrafficquality.google, reject
 host, errnewlog.umeng.com, reject
 host, gd-stats.jpush.cn, reject
 host, h-adashx.ut.taobao.com, reject
+host, hv.survicate.com, reject
 host, logx.optimizely.com, reject
 host, matomo2.tdm.com.mo, reject
+host, mmfayl-cdn-settings.appsflyersdk.com, reject
+host, mmfayl-launches.appsflyersdk.com, reject
 host, oslogs.umeng.com, reject
 host, partner.shareaholic.com, reject
 host, pixel.wp.com, reject
@@ -371,7 +414,11 @@ host, static.getclicky.com, reject
 host, statistics.tdm.com.mo, reject
 host, stats-ipv6.jpush.cn, reject
 host, stats.jpush.cn, reject
+host, survey-prd.survicate-cdn.com, reject
 host, tags.tiqcdn.com, reject
+host, uooh2y.cdn-settings.appsflyersdk.com, reject
+host, uooh2y.conversions.appsflyersdk.com, reject
+host, uooh2y.skadsdk.appsflyersdk.com, reject
 host-suffix, a.mouseflow.com, reject
 host-suffix, adm.hotjar.com, reject
 host-suffix, api-hotjar.com, reject
@@ -417,19 +464,29 @@ host-suffix, w1.luckyorange.com, reject
 
 # Advertising Platforms
 host, a.teads.tv, reject
+host, abc.hkepc.net, reject
 host, ad2.apx.appier.net, reject
+host, adx.apx.appier.net, reject
+host, ad-specs.guoshipartners.com, reject
 host, ads.adthrive.com, reject
 host, ads.yieldmo.com, reject
+host, api.permutive.com, reject
 host, api.w.inmobi.com, reject
+host, app.rybbit.io, reject
 host, anymind360.com, reject
+host, au.adhacker.online, reject
 host, bd.raptivecdn.com, reject
 host, beacon.bidder.taboola.com, reject
 host, cdn.caprofitx.com, reject
+host, cdn2.inner-active.mobi, reject
 host, cdn.taboola.com, reject
 host, config.ads.vungle.com, reject
 host, config.inmobi.com, reject
 host, cpm.bidmyqps.xyz, reject
+host, currency.prebid.org, reject
 host, d.applovin.com, reject
+host, d.applvn.com, reject
+host, dmp.im-apps.net, reject
 host, display.bidder.taboola.com, reject
 host, fastlane.rubiconproject.com, reject
 host, get.optad360.io, reject
@@ -439,31 +496,50 @@ host, htlb.casalemedia.com, reject
 host, ib.adnxs.com, reject
 host, img.ads.tvb.com, reject
 host, js-sec.indexww.com, reject
+host, jwpltx.com, reject
+host, l.logly.co.jp, reject
 host, log.outbrainimg.com, reject
+host, m.vpon.com, reject
 host, micro.rubiconproject.com, reject
 host, ms.applovin.com, reject
 host, ms.applvn.com, reject
+host, ms4.applovin.com, reject
+host, ms4.applvn.com, reject
 host, mwtw.presage.io, reject
+host, nt.compass-fit.jp, reject
 host, prebid.a-mo.net, reject
 host, prebid.ad.smaato.net, reject
+host, prod-mediate-events.applovin.com, reject
+host, pv.ltn.com.tw, reject
+host, qcloud20.qno.com.tw, reject
 host, r.skimresources.com, reject
+host, r2d2.aotter.net, reject
 host, rt.applovin.com, reject
+host, rt.applvn.com, reject
 host, rtb.openx.net, reject
 host, s.ad.smaato.net, reject
 host, s.skimresources.com, reject
+host, server.punwave.com, reject
 host, servedby.revive-adserver.net, reject
 host, servedbyadbutler.com, reject
 host, sync.adkernel.com, reject
 host, sync.inmobi.com, reject
+host, sync.logly.co.jp, reject
 host, ssp-sync.criteo.com, reject
 host, static.adsafeprotected.com, reject
+host, static.aottercdn.com, reject
 host, static.criteo.net, reject
 host, static.dable.io, reject
+host, skadnetworks.fyber.com, reject
 host, stormgate.production.raptive.com, reject
+host, sts.applovin.com, reject
 host, t.skimresources.com, reject
+host, t.ssp.hinet.net, reject
+host, tag.adbro.me, reject
 host, tcheck.outbrainimg.com, reject
 host, telemetry.sdk.inmobi.com, reject
 host, tlx.3lift.com, reject
+host, trek-fp-dmp.aotter.net, reject
 host, trc.taboola.com, reject
 host, widget-pixels.outbrain.com, reject
 host-suffix, ad-api.uogroup.com, reject

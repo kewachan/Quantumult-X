@@ -12,6 +12,9 @@ host, gsa.apple.com, proxy
 #Youtube EI
 #host, youtubei.googleapis.com
 
+#Google
+host-suffix, imasdk.googleapis.com, proxy
+
 #RandomArt
 host-suffix, randomdailyart.com, proxy
 
@@ -20,6 +23,9 @@ host-suffix, basalt.yevgenglukhov.com, proxy
 
 #Artvee
 host-suffix, artvee.com, proxy
+
+#Coolism
+host-suffix, byteark.com, proxy
 
 ############ China ############
 
@@ -33,6 +39,9 @@ host-suffix, tplinkcloud.com.cn, proxy
 
 #Netease
 host-suffix, easebar.com, proxy
+
+#Manhuashe
+host-suffix, manhuashe.com, proxy
 
 #xiaoyakankan
 host-keyword, kkzycdn, proxy
