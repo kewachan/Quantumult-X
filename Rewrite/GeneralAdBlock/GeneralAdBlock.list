@@ -1,7 +1,7 @@
 hostname = ani.gamer.com.tw, i2.bahamut.com.tw, *.manhuashe.com, api.gamer.com.tw, config.mobile.yahoo.com, meta.wikimedia.org, service.thim.immigration.go.th, userside-api.mfoodapp.com, www.google.com, zh.wikipedia.org, gql-fed.reddit.com, gql.reddit.com, legy.line-apps.com, pay.macaupass.com, service.global.thim.immigration.go.th
 
 ^https:\/\/i2\.bahamut\.com\.tw\/build\/js\/anime_player\.js(?:\?|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/bahamut-web.js?v=1.0.0
-^https:\/\/ani\.gamer\.com\.tw\/(?:\?|$|animeVideo\.php(?:\?|$)|animeList\.php(?:\?|$)|animeRef\.php(?:\?|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/web-enhance.js?v=20261025-4
+^https:\/\/ani\.gamer\.com\.tw\/(?:\?|$|animeVideo\.php(?:\?|$)|animeList\.php(?:\?|$)|animeRef\.php(?:\?|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/web-enhance.js?v=20261025-5
 
 # Bahamut
 ^https:\/\/api\.gamer\.com\.tw\/(?:mobile_app\/anime\/v\d\/(?:token|m3u8)|anime\/v\d\/video_src)\.php(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/GeneralAdBlock/bahamut-adblock.js?v=1.2.0

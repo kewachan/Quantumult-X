@@ -116,6 +116,8 @@
       if (value !== DROP && removed + tracks) body = JSON.stringify(value);
     } else if (/<html\b|<!doctype\b/i.test(body)) {
       body = embedded(body);
+      if (bahamut) body = body.replace(/(?:https?:)?\/\/i2\.bahamut\.com\.tw\/build\/js\/anime_player\.js(?:\?[^"'<>\s]*)?/g,
+        source => parameter(source, "qx_web", "20261025-1"));
       const css = youtube
         ? "ytd-ad-slot-renderer,ytd-display-ad-renderer,ytd-promoted-sparkles-web-renderer,ytd-promoted-video-renderer,#masthead-ad,#player-ads{display:none!important}"
         : bilibili ? '.bili-video-card:has(a[href*="cm.bilibili.com"]),.bili-video-card:has(a[href*="ad.bilibili.com"]){display:none!important}'
