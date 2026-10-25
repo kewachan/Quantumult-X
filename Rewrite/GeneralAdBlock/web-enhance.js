@@ -120,14 +120,14 @@
         ? "ytd-ad-slot-renderer,ytd-display-ad-renderer,ytd-promoted-sparkles-web-renderer,ytd-promoted-video-renderer,#masthead-ad,#player-ads{display:none!important}"
         : bilibili ? '.bili-video-card:has(a[href*="cm.bilibili.com"]),.bili-video-card:has(a[href*="ad.bilibili.com"]){display:none!important}'
         : '[id^="div-gpt-ad-"]{display:none!important}';
-      if (!body.includes('id="qx-desktop-enhance"')) {
+      if (!body.includes('id="qx-web-enhance"')) {
         const nonce = (body.match(/<style\b[^>]*\bnonce=["']([^"']+)["']/i) || [])[1];
-        const style = '<style id="qx-desktop-enhance"' + (nonce ? ' nonce="' + nonce.replace(/["<>]/g, "") + '"' : "") + ">" + css + "</style>";
+        const style = '<style id="qx-web-enhance"' + (nonce ? ' nonce="' + nonce.replace(/["<>]/g, "") + '"' : "") + ">" + css + "</style>";
         if (/<\/head\s*>/i.test(body)) body = body.replace(/<\/head\s*>/i, style + "</head>");
       }
     }
     if (body === original) return $done({});
-    console.log("Desktop " + (youtube ? "YouTube" : bilibili ? "Bilibili" : "Bahamut") + ": removed=" + removed + ", captionTracks=" + tracks);
-    $done({ body, headers: { ...$response.headers, "X-QX-Desktop-Enhance": "1" } });
+    console.log("Web " + (youtube ? "YouTube" : bilibili ? "Bilibili" : "Bahamut") + ": removed=" + removed + ", captionTracks=" + tracks);
+    $done({ body, headers: { ...$response.headers, "X-QX-Web-Enhance": "1" } });
   } catch (_) { $done({}); }
 })();
