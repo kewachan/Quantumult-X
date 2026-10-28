@@ -82,12 +82,143 @@
     let state;
     try { state = JSON.parse(store.read(key) || "{}"); } catch (_) { state = {}; }
     const now = Date.now();
-    const entries = (Array.isArray(state.entries) ? state.entries : []).filter(entry =>
+    const entries = (Array.isArray(state?.entries) ? state.entries : []).filter(entry =>
       entry && entry.expiresAt > now && entry.encryptKey !== encryptKey);
     entries.unshift({ clientKey, encryptKey, savedAt: now,
       expiresAt: now + Math.max(60, Math.min(259200, Number(lifetime) || 21600)) * 1000 });
     store.write(JSON.stringify({ entries: entries.slice(0, 8), refreshNeeded: false }), key);
   }
+
+  function hotConfigFields(source) {
+    const read = offset => {
+      let value = 0, multiplier = 1;
+      for (let count = 0; count < 10 && offset < source.length; count++) {
+        const byte = source[offset++];
+        value += (byte & 127) * multiplier;
+        if (!(byte & 128)) return [value, offset];
+        multiplier *= 128;
+      }
+      throw new Error("Invalid hot config varint");
+    };
+    let offset = 0;
+    const output = [];
+    while (offset < source.length) {
+      const start = offset, [tag, afterTag] = read(offset), number = Math.floor(tag / 8), wire = tag % 8;
+      if (number < 1 || number > 536870911) throw new Error("Invalid hot config field");
+      offset = afterTag;
+      let value;
+      if (wire === 0) [value, offset] = read(offset);
+      else if (wire === 1) offset += 8;
+      else if (wire === 2) {
+        const [length, start] = read(offset), end = start + length;
+        if (!Number.isSafeInteger(end) || end > source.length) throw new Error("Truncated hot config field");
+        value = source.subarray(start, end); offset = end;
+      } else if (wire === 5) offset += 4;
+      else throw new Error("Unsupported hot config field");
+      if (offset > source.length) throw new Error("Truncated hot config field");
+      output.push({ number, wire, value, raw: source.subarray(start, offset) });
+    }
+    return output;
+  }
+  const hotConfigValue = (source, number, wire) => hotConfigFields(source).find(field => field.number === number && field.wire === wire)?.value;
+
+  function hotConfigBase64(source) {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    let output = "";
+    for (let index = 0; index < source.length; index += 3) {
+      const value = source[index] * 65536 + (source[index + 1] || 0) * 256 + (source[index + 2] || 0);
+      output += alphabet[value >>> 18] + alphabet[value >>> 12 & 63] +
+        (index + 1 < source.length ? alphabet[value >>> 6 & 63] : "=") +
+        (index + 2 < source.length ? alphabet[value & 63] : "=");
+    }
+    return output;
+  }
+
+  function hotConfigDecode(value) {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    if (typeof value !== "string" || value.length > 65536 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value)) throw new Error("Invalid staged config");
+    const output = [];
+    let buffer = 0, bits = 0;
+    for (const character of value) {
+      if (character === "=") break;
+      buffer = (buffer << 6) | alphabet.indexOf(character); bits += 6;
+      if (bits >= 8) { bits -= 8; output.push(buffer >>> bits & 255); }
+    }
+    return Uint8Array.from(output);
+  }
+
+  function hotConfigConcat(chunks) {
+    const output = new Uint8Array(chunks.reduce((sum, chunk) => sum + chunk.length, 0));
+    let offset = 0;
+    for (const chunk of chunks) { output.set(chunk, offset); offset += chunk.length; }
+    return output;
+  }
+
+  function hotConfigField(number, payload) {
+    const variable = value => {
+      const output = [];
+      do { output.push(value % 128 | (value > 127 ? 128 : 0)); value = Math.floor(value / 128); } while (value);
+      return Uint8Array.from(output);
+    };
+    return hotConfigConcat([variable(number * 8 + 2), variable(payload.length), payload]);
+  }
+
+  function hotConfigPatch(source, path, payload) {
+    const fields = hotConfigFields(source), matches = fields.filter(field => field.number === path[0]);
+    if (matches.length > 1 || matches.some(field => field.wire !== 2)) throw new Error("Unsupported config container");
+    const value = path.length === 1 ? payload : hotConfigPatch(matches[0]?.value || new Uint8Array(0), path.slice(1), payload);
+    const replacement = hotConfigField(path[0], value), output = fields.map(field => field.number === path[0] ? replacement : field.raw);
+    if (!matches.length) output.push(replacement);
+    return hotConfigConcat(output);
+  }
+
+  try {
+    const source = bytes(qxResponse?.bodyBytes), stagingKey = "YouTubeHotConfigBootstrap.v1.youtubeMusic";
+    const type = Object.entries(qxResponse?.headers || {}).find(([name]) => name.toLowerCase() === "content-type")?.[1] || "";
+    const music = Object.entries(request.headers || {}).some(([name, value]) =>
+      name.toLowerCase() === "user-agent" && String(value).toLowerCase().includes("youtubemusic"));
+    if (music && /\/youtubei\/v1\/mdx\/handoff(?:\?|$)/.test(request.url) && qxResponse?.statusCode === 200 &&
+        /^application\/(?:x-)?protobuf(?:;|$)/i.test(type) && source?.length && source.length <= 4 * 1024 * 1024) {
+      const state = JSON.parse(store.read(stagingKey) || "{}"), now = Date.now(), session = String(request.sessionIndex ?? "");
+      const entries = (Array.isArray(state?.entries) ? state.entries : []).filter(entry =>
+        entry && now - entry.savedAt >= 0 && now - entry.savedAt < 60000);
+      const staged = entries.find(entry => entry.session === session);
+      if (staged) {
+        const hot = hotConfigDecode(staged.hotConfig);
+        if (hotConfigValue(hot, 1, 2)?.length !== 32 || !hotConfigValue(hot, 2, 2)?.length) throw new Error("Incomplete staged config");
+        let current = source;
+        for (const number of [1, 16, 7, 138536474, 146311580]) current = current && hotConfigValue(current, number, 2);
+        if (!current) response.body = hotConfigPatch(source, [1, 16, 7, 138536474, 146311580], hot);
+        const remaining = entries.filter(entry => entry.session !== session);
+        store.write(remaining.length ? JSON.stringify({ entries: remaining }) : "", stagingKey);
+      }
+    }
+  } catch (_) { console.log("YouTube Music bootstrap: original response kept"); }
+
+  try {
+    let hot = bytes(response?.bodyBytes);
+    const type = Object.entries(qxResponse?.headers || {}).find(([name]) => name.toLowerCase() === "content-type")?.[1] || "";
+    if (qxResponse?.statusCode === 200 && hot?.length && hot.length <= 4 * 1024 * 1024 &&
+        /^application\/(?:x-)?protobuf(?:;|$)/i.test(type)) {
+      for (const number of [1, 16, 7, 138536474, 146311580]) hot = hot && hotConfigValue(hot, number, 2);
+      if (hot) {
+        const client = hotConfigValue(hot, 1, 2), encrypted = hotConfigValue(hot, 2, 2), lifetime = hotConfigValue(hot, 3, 0);
+        if (client?.length === 32 && encrypted?.length) {
+          const music = Object.entries(request.headers || {}).some(([name, value]) =>
+            name.toLowerCase() === "user-agent" && String(value).toLowerCase().includes("music"));
+          const platform = music ? "youtubeMusic" : "youtube", clientKey = hotConfigBase64(client), encryptKey = hotConfigBase64(encrypted);
+          cachePlaybackKey(platform, clientKey, encryptKey, lifetime);
+          let config;
+          try { config = JSON.parse(store.read("YouTubeConfig") || "{}"); } catch (_) { config = {}; }
+          if (!config || typeof config !== "object" || Array.isArray(config)) config = {};
+          config[platform] = { clientKey, encryptKey };
+          store.write(JSON.stringify(config), "YouTubeConfig");
+        }
+      }
+    }
+  } catch (_) { console.log("YouTube hot config: unsupported response kept"); }
+
+  if (/^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(?:mdx\/handoff|music\/get_queue|player\/heartbeat)(?:\?|$)/.test(request.url)) return done({});
 
   (($request, $response, $done, $persistentStore, $prefs, $httpClient, $argument, $utils) => {
 // Build: 2026/8/28 kewachan post-play More videos ad fix

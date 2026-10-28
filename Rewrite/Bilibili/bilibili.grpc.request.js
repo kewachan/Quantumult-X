@@ -1,5 +1,5 @@
 (() => {
-  const endpoint = /^https:\/\/grpc\.biliapi\.net(?::443)?\/bilibili\.(?:app\.(?:view|viewunite)\.v1\.View\/(?:View|ViewProgress|TFInfo|AIRelateAsync|RelatesFeed)|main\.community\.reply\.v[12]\.Reply\/(?:MainList|SubjectDescription))(?:\?.*)?$/;
+  const endpoint = /^https:\/\/grpc\.biliapi\.net(?::443)?\/bilibili\.(?:app\.(?:(?:view|viewunite)\.v1\.View\/(?:View|ViewProgress|TFInfo|AIRelateAsync|RelatesFeed)|playerunite\.v1\.Player\/PlayViewUnite)|main\.community\.reply\.v[12]\.Reply\/(?:MainList|SubjectDescription))(?:\?.*)?$/;
   if ($request.method !== 'POST' || !endpoint.test($request.url || '')) return $done({});
   const input = $request.bodyBytes;
   const body = input instanceof ArrayBuffer ? new Uint8Array(input)
@@ -17,5 +17,6 @@
   const output = Object.fromEntries(Object.entries(headers).filter(([key]) =>
     !/^(?:host|:authority|connection|te|trailer|transfer-encoding|content-length)$/i.test(key)));
   output.Host = 'app.bilibili.com';
-  $done({ headers: output, bodyBytes: body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength) });
+  const url = $request.url.replace(/^https:\/\/grpc\.biliapi\.net(?::443)?\//, 'https://app.bilibili.com/');
+  $done({ url, headers: output, bodyBytes: body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength) });
 })();
