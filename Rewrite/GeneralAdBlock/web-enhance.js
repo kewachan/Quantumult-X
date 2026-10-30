@@ -4,7 +4,7 @@
   if (typeof original !== "string" || Number($response.statusCode || 200) !== 200) return $done({});
   const youtube = /^https:\/\/www\.youtube\.com\//.test(url);
   const bilibili = /^https:\/\/(?:www|api)\.bilibili\.com\//.test(url);
-  const bahamut = /^https:\/\/(?:ani|api)\.gamer\.com\.tw\//.test(url);
+  const bahamut = /^https:\/\/ani\.gamer\.com\.tw\/(?:\?|$|anime(?:Video|List|Ref)\.php(?:\?|$))/.test(url);
   if (!youtube && !bilibili && !bahamut) return $done({});
   const DROP = {};
   const adArrays = new Set(["playerAds", "adPlacements", "adSlots"]);
@@ -116,8 +116,8 @@
       if (value !== DROP && removed + tracks) body = JSON.stringify(value);
     } else if (/<html\b|<!doctype\b/i.test(body)) {
       body = embedded(body);
-      if (bahamut) body = body.replace(/(?:https?:)?\/\/i2\.bahamut\.com\.tw\/build\/js\/anime_player\.js(?:\?[^"'<>\s]*)?/g,
-        source => parameter(source, "qx_web", "20261025-1"));
+      if (bahamut) body = body.replace(/(?:https?:)?\/\/i2\.bahamut\.com\.tw\/build\/js\/anime_player\.js(?=[?#"'<>\s]|$)(?:\?[^"'<>\s]*)?/g,
+        source => parameter(source, "qx_web", "20261030-1"));
       const css = youtube
         ? "ytd-ad-slot-renderer,ytd-display-ad-renderer,ytd-promoted-sparkles-web-renderer,ytd-promoted-video-renderer,#masthead-ad,#player-ads{display:none!important}"
         : bilibili ? '.bili-video-card:has(a[href*="cm.bilibili.com"]),.bili-video-card:has(a[href*="ad.bilibili.com"]){display:none!important}'
