@@ -130,6 +130,7 @@ hostname = *.maasplus.com, macaumovie.com, statistic.live.126.net, *.aomiapp.com
 (https?:\/\/zh.wikipedia.org\/)(zh)(\/.+) url 302 $1zh-hk$3
 
 #Google
+^(https?:\/\/www\.google\.com\/search\?)(?=(?:[^&#]*&)*q=[^&#]+)(?!(?:[^&#]*&)*(?:udm|tbm)=)client=[^&#]*&([^#]+)(#.*)?$ url 302 $1$2&gl=hk&safe=off&udm=14$3
 ^(https?:\/\/www\.google\.com\/search\?)(?!(?:[^&#]*&)*(?:udm|tbm)=)(q=[^&#]+(?:&[^&#]*)*?)&client=[^&#]*(&[^#]*)?(#.*)?$ url 302 $1$2$3&gl=hk&safe=off&udm=14$4
 ^(https?:\/\/www\.google\.com\/search\?)(?=(?:[^&#]*&)*q=[^&#]+)(?!(?:[^&#]*&)*(?:udm|tbm)=)([^#]+)(#.*)?$ url 302 $1udm=14&$2$3
 ^https?:\/\/www\.google\.com\/ads\/on-device\/conversions url reject
