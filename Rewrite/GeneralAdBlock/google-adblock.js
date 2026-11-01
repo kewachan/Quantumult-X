@@ -112,6 +112,52 @@ function addSponsoredStyle(tag) {
   return tag.replace(/>$/, " " + sponsoredStyle + ">");
 }
 
+function hideGoogleAppPromotions(html) {
+  // Google also inserts the footer from JavaScript-escaped HTML. Match the
+  // app destination rather than its changing layout classes or translated text.
+  return html.replace(/(?:<|\\x3c|\\u003c)(?:div|a|button)\b[^<>]*?(?:>|\\x3e|\\u003e)/gi, function(tag) {
+    const attribute = /\sdata-url\s*=\s*(\\?)(["'])([\s\S]*?)\1\2/i.exec(tag);
+    if (!attribute) {
+      return tag;
+    }
+
+    const destination = attribute[3]
+      .replace(/\\(?:x([\da-f]{2})|u([\da-f]{4}))/gi, function(_, hex, unicode) {
+        return String.fromCharCode(parseInt(hex || unicode, 16));
+      })
+      .replace(/\\\//g, "/")
+      .replace(/&(?:amp|#38|#x26);/gi, "&");
+    if (!/^https:\/\/iga\.google\.com\/\?/i.test(destination)) {
+      return tag;
+    }
+
+    const target = /[?&]url=([^&#]*)/i.exec(destination);
+    try {
+      if (!target || !/^googleapp:\/\/home(?:[/?#]|$)/i.test(decodeURIComponent(target[1]))) {
+        return tag;
+      }
+    } catch (_) {
+      return tag;
+    }
+
+    const style = /(\sstyle\s*=\s*)(\\?)(["'])([\s\S]*?)\2\3/i.exec(tag);
+    if (style) {
+      if (/\bdisplay\s*:\s*none\s*!important\b/i.test(style[4])) {
+        return tag;
+      }
+      return tag.replace(style[0], function() {
+        return style[1] + style[2] + style[3] +
+          "display:none!important;" + style[4] + style[2] + style[3];
+      });
+    }
+
+    const quote = attribute[1] + attribute[2];
+    return tag.replace(/(?:>|\\x3e|\\u003e)$/i, function(close) {
+      return " style=" + quote + "display:none!important" + quote + close;
+    });
+  });
+}
+
 function getElementInnerHtmlById(html, id) {
   const openingTag = new RegExp(
     "<([a-z][\\w:-]*)\\b[^>]*\\bid=(['\"])" + id + "\\2[^>]*>",
@@ -208,7 +254,7 @@ function rewriteArcResponse(text) {
       return null;
     }
 
-    const payload = hideSponsoredHtml(text.slice(start, end));
+    const payload = hideSponsoredHtml(hideGoogleAppPromotions(text.slice(start, end)));
     output += payload.length.toString(16) + ";" + payload;
     position = end;
   }
@@ -247,6 +293,8 @@ if (canRewriteResponse && isPaginationResponse) {
         'class="CJHX3e B2VR9" style="display:none!important"'
       );
   }
+
+  body = hideGoogleAppPromotions(body);
 
   // Hide the complete Sponsored Result header and content without leaving gaps.
   body = hideSponsoredHtml(body);
