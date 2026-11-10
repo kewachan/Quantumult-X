@@ -16,6 +16,7 @@ const organic = '<main id="search"><a href="https://example.com/">Ask and explor
 const footer = '<footer>Hong Kong <a href="/preferences">Settings</a></footer>';
 const style = ' style="display:none!important"';
 const legacy = '<div class="B2VR9 CJHX3e">Ask and explore anything with the Google app</div>';
+const verifiedLegacy = legacy.replace('>', ' data-url="' + app + '">');
 const sponsored = '<div id="tads"><a href="/aclk?ad=example">Sponsored</a></div>';
 
 function freeze(value) {
@@ -238,19 +239,19 @@ test('missing or malformed sourcePath arguments never access preferences or fetc
     { sourcePath: 'https://example.test/google-adblock.js#bad=%E0%A4%A' }]) assert.equal(rewrite(card, options).body.replace(style, ''), card);
 });
 
-test('legacy app cards and existing sponsored markers keep filtering without changing organic content', () => {
+test('verified legacy app cards and existing sponsored markers keep filtering without changing organic content', () => {
   for (const tag of [sponsored, '<section data-text-ad="1"><a href="/aclk?x=1">Ad</a></section>',
     '<div jscontroller="tY2w9d">Ad</div>', '<div jsname="ix0Hvc">Ad</div>']) {
     const first = rewrite(tag + organic).body;
     assert.equal(first.replace(style, ''), tag + organic);
     passThrough(first);
   }
-  assert.equal(rewrite(legacy + organic).body.replace(style, ''), legacy + organic);
+  assert.equal(rewrite(verifiedLegacy + organic).body.replace(style, ''), verifiedLegacy + organic);
 });
 
-test('legacy cards are also idempotent with either class order and literal or escaped HTML', () => {
+test('verified legacy cards are also idempotent with either class order and literal or escaped HTML', () => {
   for (const classes of ['B2VR9 CJHX3e', 'CJHX3e B2VR9']) {
-    const html = legacy.replace('B2VR9 CJHX3e', classes);
+    const html = verifiedLegacy.replace('B2VR9 CJHX3e', classes);
     for (const input of [html + organic, inserted(html + footer)]) {
       const first = rewrite(input).body;
       passThrough(first);
@@ -261,11 +262,70 @@ test('legacy cards are also idempotent with either class order and literal or es
 });
 
 test('already hidden and visible cards coexist without suppressing other cards or repeated styles', () => {
-  const hidden = rewrite(card).body, input = hidden + card + legacy + organic;
+  const hidden = rewrite(card).body, input = hidden + card + verifiedLegacy + organic;
   const first = rewrite(input).body;
   assert.equal(first.split('display:none!important').length - 1, 3);
   assert.ok(first.endsWith(organic));
   passThrough(first);
+});
+
+for (const classes of ['B2VR9 CJHX3e', 'CJHX3e B2VR9']) {
+  for (const encoding of ['plain', 'literal', 'hex', 'unicode', 'encoded-end']) {
+    test('separate promotion text cannot hide organic ' + classes + ' elements in ' + encoding + ' HTML', () => {
+      const ordinary = '<div class="' + classes + '"><a href="https://example.com/">正常搜尋結果</a></div>';
+      const mention = '<p>Ask and explore anything with the Google app</p>';
+      for (const html of [ordinary + mention, mention + ordinary, ordinary + mention + ordinary]) {
+        passThrough(encoding === 'plain' ? html : inserted(html, encoding));
+      }
+    });
+  }
+}
+
+test('only verified app cards change beside identical-class organic siblings and ancestors', () => {
+  for (const classes of ['B2VR9 CJHX3e', 'CJHX3e B2VR9']) {
+    const plain = '<div class="' + classes + '">正常搜尋結果</div>';
+    const targeted = legacy.replace('B2VR9 CJHX3e', classes).replace('>', ' data-url="' + app + '">');
+    const parent = '<main class="' + classes + '">';
+    const html = parent + plain + targeted + plain + '</main>';
+    const expected = parent + plain + targeted.replace('>', style + '>') + plain + '</main>';
+    for (const encoding of ['plain', 'literal', 'hex', 'unicode', 'encoded-end']) {
+      const input = encoding === 'plain' ? html : inserted(html, encoding);
+      const output = rewrite(input).body;
+      assert.equal(encoding === 'plain' ? output : payload(output), expected);
+      onlyHiddenStylesChanged(input, output);
+      passThrough(output);
+    }
+  }
+});
+
+test('legacy classes and quoted promotion text alone are not evidence of an app destination', () => {
+  for (const classes of ['B2VR9 CJHX3e', 'CJHX3e B2VR9']) {
+    const textOnly = legacy.replace('B2VR9 CJHX3e', classes);
+    for (const destination of ['', 'https://example.com/', 'https://iga.google.com.evil.test/?url=googleapp%3A%2F%2Fhome',
+      'https://iga.google.com/?url=googleapp%3A%2F%2Fhomepage', 'https://iga.google.com/?url=%E0%A4%A']) {
+      const html = destination ? textOnly.replace('>', ' data-url="' + destination + '">') : textOnly;
+      passThrough(html);
+      passThrough(inserted(html));
+    }
+  }
+});
+
+test('an unrelated mention cannot rewrite matching class text inside JavaScript data', () => {
+  const input = '<p>Ask and explore anything with the Google app</p><script>const example = ' +
+    JSON.stringify('<div class="B2VR9 CJHX3e">Documentation example</div>') + ';</script>';
+  passThrough(input);
+});
+
+test('ARC frames keep class collisions untouched and only hide verified app destinations', () => {
+  const plain = '<div class="B2VR9 CJHX3e">正常搜尋結果</div>';
+  const targeted = legacy.replace('>', ' data-url="' + app + '">');
+  const frames = [plain + organic, inserted(plain + organic), targeted, footer];
+  const options = { url: search + '&asearch=arc' };
+  const input = encodeFrames(frames);
+  const output = rewrite(input, options).body;
+  assert.deepEqual(decodeFrames(output), [frames[0], frames[1], targeted.replace('>', style + '>'), footer]);
+  onlyHiddenStylesChanged(input, output, true);
+  passThrough(output, options);
 });
 
 test('ARC pagination preserves Unicode and unrelated frames and updates every modified frame length', () => {

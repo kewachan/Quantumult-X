@@ -273,27 +273,6 @@ if (canRewriteResponse && isPaginationResponse) {
     $done({});
   }
 } else if (canRewriteResponse) {
-  // Known working response replacement for the Google app promotion.
-  if (body.includes("Ask and explore anything with the Google app")) {
-    body = body
-      .replaceAll(
-        /class=\\"B2VR9 CJHX3e\\"(?! style=\\"display:none!important\\")/g,
-        'class=\\"B2VR9 CJHX3e\\" style=\\"display:none!important\\"'
-      )
-      .replaceAll(
-        /class="B2VR9 CJHX3e"(?! style="display:none!important")/g,
-        'class="B2VR9 CJHX3e" style="display:none!important"'
-      )
-      .replaceAll(
-        /class=\\"CJHX3e B2VR9\\"(?! style=\\"display:none!important\\")/g,
-        'class=\\"CJHX3e B2VR9\\" style=\\"display:none!important\\"'
-      )
-      .replaceAll(
-        /class="CJHX3e B2VR9"(?! style="display:none!important")/g,
-        'class="CJHX3e B2VR9" style="display:none!important"'
-      );
-  }
-
   body = hideGoogleAppPromotions(body);
 
   // Hide the complete Sponsored Result header and content without leaving gaps.
