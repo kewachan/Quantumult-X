@@ -31,14 +31,14 @@ async function transform(body,key,lang='zh-Hant') {
   return worker.fetch(new Request('https://worker.test/transform?ck='+encodeURIComponent(key.toString('base64'))+'&captionLang='+lang,
     {method:'POST',headers:{'Content-Type':'application/vnd.yt-ump'},body}));
 }
-async function runClient(f, failure=false) {
+async function runClient(f, failure=false, config={}) {
   const source=fs.readFileSync(path.join(root,'Rewrite/Youtube/youtube.init.response.js'),'utf8');
   const input=Buffer.concat([f.metadata,f.audio]); let calls=0, done=0;
   return new Promise((resolve,reject) => {
-    const store=JSON.stringify({entries:[{clientKey:f.key.toString('base64'),expiresAt:Date.now()+60000}]});
+    const store=config.store || new Map([['YouTubePlaybackKeys.v2.youtubeMusic',JSON.stringify({entries:[{clientKey:f.key.toString('base64'),expiresAt:Date.now()+60000}]})]]);
     const ctx={Uint8Array,ArrayBuffer,DataView,Date,Math,JSON,console:{log(){}},setTimeout,clearTimeout,
-      $request:{headers:{'User-Agent':'YouTubeMusic'}},$response:{statusCode:200,headers:{'content-type':'application/vnd.yt-ump'},bodyBytes:Uint8Array.from(input).buffer},
-      $prefs:{valueForKey:()=>store,setValueForKey:()=>true},
+      $request:{headers:{'User-Agent':config.agent || 'YouTubeMusic'}},$response:{statusCode:200,headers:{'content-type':'application/vnd.yt-ump'},bodyBytes:Uint8Array.from(input).buffer},
+      $prefs:{valueForKey:key=>store.get(key),setValueForKey:(value,key)=>(store.set(key,value),true)},
       $task:{fetch:async req=>{calls++;if(failure==='network')throw Error('unavailable');if(failure==='status')return {statusCode:503,headers:{},bodyBytes:new ArrayBuffer(0)};const res=await transform(new Uint8Array(req.bodyBytes),f.key);return {statusCode:res.status,headers:Object.fromEntries(res.headers),bodyBytes:await res.arrayBuffer()};}},
       $done(value){done++;resolve({value,calls,done,input});}};
     try { vm.runInNewContext(source,ctx); } catch(e) {reject(e);}
@@ -74,4 +74,38 @@ test('worker and QX adapter preserve original playback on failures',async()=>{
   const invalid=await transform(Uint8Array.of(255),f.key); assert.equal(invalid.headers.get('x-youtube-adblock'),'bypass-error'); assert.deepEqual(Buffer.from(await invalid.arrayBuffer()),Buffer.from([255]));
   const wrong=await transform(f.metadata,Buffer.alloc(32,8)); assert.equal(wrong.headers.get('x-youtube-adblock'),'removed-0'); assert(Buffer.from(await wrong.arrayBuffer()).equals(f.metadata));
   const badType=await worker.fetch(new Request('https://worker.test/transform?ck=x',{method:'POST',body:'x'})); assert.equal(badType.status,415);
+});
+async function runBootstrap({agent='com.google.ios.youtube/20', key=Buffer.alloc(32,7), fault='', requestBody, store=new Map(), session=123}={}) {
+  const source=fs.readFileSync(path.join(root,'Rewrite/Youtube/youtube.bootstrap.request.js'),'utf8');
+  const context=field(1,Buffer.from('synthetic-context')), body=requestBody||Buffer.concat([context,field(2,Buffer.from('private-not-forwarded'))]);
+  const hot=Buffer.concat([field(1,key),field(2,Buffer.alloc(128,9)),scalar(3,120)]);
+  const config=[1,16,7,138536474,146311580].reduceRight((b,n)=>field(n,b),hot);
+  let calls=[],count=0; const started=Date.now();
+  return new Promise((resolve,reject)=>{
+    const ctx={Uint8Array,ArrayBuffer,DataView,Date,Math,JSON,console:{log(){}},setTimeout,clearTimeout,
+      $request:{method:'POST',url:'https://youtubei.googleapis.com/youtubei/v1/mdx/handoff',sessionIndex:session,headers:{'user-agent':agent,'content-type':'application/x-protobuf','x-youtube-hot-hash-data':'synthetic'},bodyBytes:Uint8Array.from(body).buffer},
+      $prefs:{valueForKey:k=>store.get(k),setValueForKey:(v,k)=>(store.set(k,v),true)},
+      $task:{fetch:req=>{calls.push(req);if(fault==='timeout')return new Promise(()=>{});if(fault==='network')return Promise.reject(Error('offline'));if(fault==='invalid')return Promise.resolve({statusCode:200,headers:{'content-type':'application/x-protobuf'},bodyBytes:Uint8Array.of(255).buffer});return Promise.resolve({statusCode:200,headers:{'content-type':'application/x-protobuf'},bodyBytes:Uint8Array.from(config).buffer});}},
+      $done(value){count++;resolve({value,count,calls,store,body,context,elapsed:Date.now()-started});}};
+    try {vm.runInNewContext(source,ctx);} catch(e){reject(e);}
+  });
+}
+test('YouTube bootstrap obtains context-only key and encrypted playback uses it',async()=>{
+  const f=fixture(), r=await runBootstrap({key:f.key});assert.equal(r.count,1);assert.deepEqual(Object.keys(r.value),[]);assert.equal(r.calls.length,1);
+  assert(Buffer.from(r.calls[0].bodyBytes).equals(r.context));assert(!Object.keys(r.calls[0].headers).some(k=>k.toLowerCase()==='x-youtube-hot-hash-data'));
+  assert(r.store.has('YouTubePlaybackKeys.v2.youtube'));assert(!r.store.has('YouTubePlaybackKeys.v2.youtubeMusic'));
+  const result=await runClient(f,false,{agent:'com.google.ios.youtube/20',store:r.store});assert(result.value.bodyBytes);assert(Buffer.from(result.value.bodyBytes).subarray(-f.audio.length).equals(f.audio));
+});
+test('YouTube bootstrap failures and deadline leave request and stored keys alone',async()=>{
+  for(const fault of ['network','invalid','timeout']) {const r=await runBootstrap({fault});assert.equal(r.count,1);assert.deepEqual(Object.keys(r.value),[]);assert.equal(r.calls.length,1);assert(!r.store.has('YouTubePlaybackKeys.v2.youtube'));if(fault==='timeout')assert(r.elapsed<1400);}
+});
+test('Music bootstrap remains separate and unknown agents bypass it',async()=>{
+  const music=await runBootstrap({agent:'com.google.ios.youtubemusic/8'});assert(music.store.has('YouTubeHotConfigBootstrap.v1.youtubeMusic'));assert(!music.store.has('YouTubePlaybackKeys.v2.youtube'));
+  const other=await runBootstrap({agent:'unrelated-client'});assert.equal(other.calls.length,0);assert.equal(other.count,1);
+});
+test('private YouTube HAR handoffs trigger bounded context-only bootstrap', {skip:!process.env.YT_STARTUP_HAR}, async()=>{
+  const entries=JSON.parse(fs.readFileSync(process.env.YT_STARTUP_HAR,'utf8')).log.entries;
+  const handoffs=entries.filter(e=>{const u=new URL(e.request.url);return u.hostname==='youtubei.googleapis.com'&&u.pathname==='/youtubei/v1/mdx/handoff'&&e.request.postData?.encoding==='base64';});
+  assert(handoffs.length>0);
+  for(const e of handoffs){const agent=e.request.headers.find(h=>h.name.toLowerCase()==='user-agent')?.value||'';const body=Buffer.from(e.request.postData.text,'base64');const r=await runBootstrap({agent,requestBody:body});assert.equal(r.calls.length,1);assert(r.store.has('YouTubePlaybackKeys.v2.youtube'));assert(Buffer.from(r.calls[0].bodyBytes).length<body.length);}
 });

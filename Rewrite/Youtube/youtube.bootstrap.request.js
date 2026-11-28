@@ -57,14 +57,17 @@
 
   try {
     const body = bytes($request.bodyBytes);
+    const agent = String(header("user-agent")).toLowerCase();
+    const music = agent.includes("youtubemusic");
+    const youtube = !music && agent.includes("com.google.ios.youtube");
     if ($request.method !== "POST" || !/^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/mdx\/handoff(?:\?|$)/.test($request.url || "") ||
-        !String(header("user-agent")).toLowerCase().includes("youtubemusic") ||
+        !(music || youtube) ||
         !/^application\/(?:x-)?protobuf(?:;|$)/i.test(header("content-type")) || !body?.length || body.length > 1024 * 1024) return finish();
     const context = field(body, 1);
     if (!context?.value?.length) return finish();
     const headers = Object.fromEntries(Object.entries($request.headers || {}).filter(([name]) =>
       !/^(?:host|:authority|connection|te|trailer|transfer-encoding|content-length|content-encoding|accept-encoding|x-youtube-hot-hash-data)$/i.test(name)));
-    deadline = setTimeout(finish, 2500);
+    deadline = setTimeout(finish, music ? 2500 : 700);
     $task.fetch({
       url: "https://youtubei.googleapis.com/youtubei/v1/log_event", method: "POST", headers,
       bodyBytes: context.raw.buffer.slice(context.raw.byteOffset, context.raw.byteOffset + context.raw.byteLength),
@@ -77,6 +80,18 @@
         if (result.statusCode !== 200 || !/^application\/(?:x-)?protobuf(?:;|$)/i.test(type) || !hot?.length || hot.length > 1024 * 1024) return finish();
         for (const number of [1, 16, 7, 138536474, 146311580]) hot = hot && field(hot, number)?.value;
         if (hot && field(hot, 1)?.value?.length === 32 && field(hot, 2)?.value?.length) {
+          if (youtube) {
+            const clientKey = base64(field(hot, 1).value), encryptKey = base64(field(hot, 2).value);
+            const lifetime = fields(hot).find(item => item.number === 3 && item.wire === 0)?.value;
+            const key = "YouTubePlaybackKeys.v2.youtube", now = Date.now();
+            let state; try { state = JSON.parse($prefs.valueForKey(key) || "{}"); } catch (_) { state = {}; }
+            const entries = (Array.isArray(state?.entries) ? state.entries : []).filter(entry =>
+              entry && entry.expiresAt > now && entry.encryptKey !== encryptKey);
+            entries.unshift({clientKey, encryptKey, savedAt: now,
+              expiresAt: now + Math.max(60, Math.min(259200, Number(lifetime) || 21600)) * 1000});
+            $prefs.setValueForKey(JSON.stringify({entries: entries.slice(0, 8), refreshNeeded: false}), key);
+            return finish();
+          }
           let state;
           try { state = JSON.parse($prefs.valueForKey(STAGING_KEY) || "{}"); } catch (_) { state = {}; }
           const now = Date.now(), session = String($request.sessionIndex ?? "");
@@ -85,7 +100,7 @@
           entries.unshift({ session, savedAt: now, hotConfig: base64(hot) });
           $prefs.setValueForKey(JSON.stringify({ entries: entries.slice(0, 4) }), STAGING_KEY);
         }
-      } catch (_) { console.log("YouTube Music bootstrap: unsupported config kept"); }
+      } catch (_) { console.log("YouTube bootstrap: unsupported config kept"); }
       finish();
     }, finish);
   } catch (_) { finish(); }
