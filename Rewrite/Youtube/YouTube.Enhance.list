@@ -13,7 +13,7 @@ hostname = *.googlevideo.com, youtubei.googleapis.com, www.youtube.com
 
 ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/get_panel(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.lyrics.js?v=20261014-1
 
-^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback\?(?:[^&]*&)*ack=[^&]*(?:&|$) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.init.response.js?v=20261025-2
+^https?:\/\/[\w-]+\.googlevideo\.com\/(?:initplayback\?(?:[^&#]*&)*(?:ack=[^&#]*|c=IOS_MUSIC)(?:[&#]|$)|videoplayback\?(?=(?:[^&#]*&)*sabr=1(?:[&#]|$))(?:[^&#]*&)*c=IOS_MUSIC(?:[&#]|$)) url script-response-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.init.response.js?v=20261025-2
 
 ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event url script-request-body https://raw.githubusercontent.com/kewachan/Quantumult-X/main/Rewrite/Youtube/youtube.request.js?v=20261025-1
 
