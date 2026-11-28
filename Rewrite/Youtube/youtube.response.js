@@ -238,7 +238,7 @@
     }
     return false;
   };
-  if (!contains(source, pagead) || !contains(source, webview)) return;
+  if (!contains(source, pagead) || !(contains(source, webview) || contains(source, adview))) return;
   const read = (bytes, start) => {
     let value = 0, multiplier = 1, offset = start;
     while (offset < bytes.length && offset - start < 10) {
@@ -283,8 +283,8 @@
     if (wire !== 2 || number !== path[0]) return;
     if (path.length > 1) return patch(payload, path.slice(1));
     return rewrite(payload, (number, wire, card) => {
-      if (number === 1 && wire === 2 && contains(card, pagead) && contains(card, webview) &&
-          (contains(card, googleads) || contains(card, adview))) { removed++; return null; }
+      if (number === 1 && wire === 2 && contains(card, pagead) &&
+          (contains(card, adview) || (contains(card, webview) && contains(card, googleads)))) { removed++; return null; }
     });
   });
   try {
